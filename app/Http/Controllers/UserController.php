@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    // Regisers the User adding their Name, Email and Password to the Database.
     public function register(Request $request) {
         $incomingfields = $request->validate([
             'name' => ['required', 'min:3', 'max:50'],
@@ -21,6 +22,8 @@ class UserController extends Controller
         
         return redirect('/');
     }
+
+    // Logs in a user based on the email and password, using Laravel's built in Authentication methods.
     public function login(Request $request) {
         $incomingfields = $request->validate([
             'email' => ['required'],
@@ -32,6 +35,8 @@ class UserController extends Controller
         } 
         return redirect('/');
     }
+
+    // Logs the User out.
     public function logout(Request $request) {
         auth()->logout();
         return redirect('/');
