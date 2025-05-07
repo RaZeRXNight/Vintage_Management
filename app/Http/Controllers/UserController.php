@@ -7,17 +7,23 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
-{
+{   //The Request Variable Holds information passed from the Forms submitted.
+
     // Regisers the User adding their Name, Email and Password to the Database.
     public function register(Request $request) {
+
+        // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
         $incomingfields = $request->validate([
             'name' => ['required', 'min:3', 'max:50'],
             'email' => ['required', 'min:3', 'max:30'],
             'password' => ['required', 'max: 20']
         ]);
         
+        // The Password is encrpted based on the bcrypt algorithm, and passed into the database.  The Request Data is them submitted into the Database, creating a new user.
         $incomingfields['password'] = bcrypt($incomingfields['password']);
         $user = User::create($incomingfields);
+
+        // The User is then Logged in (Method from the UserFactory.php File), using the built-in Authenitcation Method, and Redirected.
         auth()->login($user);
         
         return redirect('/');
@@ -41,4 +47,6 @@ class UserController extends Controller
         auth()->logout();
         return redirect('/');
     }
+
+    
 }
