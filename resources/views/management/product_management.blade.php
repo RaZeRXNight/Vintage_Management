@@ -9,7 +9,7 @@
 
     @else 
     <!-- Be present above all else. - Naval Ravikant -->
-    
+    <?php redirect('/') ?>
     @endauth
     
 </body>

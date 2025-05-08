@@ -47,6 +47,13 @@ class UserController extends Controller
         auth()->logout();
         return redirect('/');
     }
-
     
+    // Laravel Automatically matches up the name of Controller, Model and Database to conduct its search.
+    public function updateuser(User $user) {
+        return view('management.user.update_user', ['user' => $user]);
+    }
+
+    public function viewuser(User $user) {
+        return view('management.user.view_user', ['user' => $user]);
+    }
 }
