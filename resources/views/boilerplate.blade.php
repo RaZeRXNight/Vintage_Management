@@ -7,9 +7,10 @@
     @include('reusable.navbar')
     
     @else 
-    @include('reusable.login')
-    @include('reusable.register')
+    <p>You must be logged in to view this page.</p>
+    <p>Please <a href="{{ route('home') }}">login</a> to access your account.</p>
     @endauth
     
     </body>
 </html>
+
