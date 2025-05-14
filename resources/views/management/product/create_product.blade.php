@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    @include('reusable.head')
+    @include('Reusable.head')
 
     <body>
     @auth
-    @include('reusable.navbar')
+    @include('Reusable.navbar')
 
     <form action="/product_management/create_product" method="POST">
         @csrf
@@ -73,7 +73,9 @@
         </div>
     </form>
     @else 
-        
+        <!-- Be present above all else. - Naval Ravikant -->
+    <p>You must be logged in to view this page.</p>
+    <p>Please <a href="/">login</a> to access your account.</p>
     @endauth
     
     </body>

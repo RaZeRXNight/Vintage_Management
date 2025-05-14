@@ -28,7 +28,8 @@
 
     @else 
     <!-- Be present above all else. - Naval Ravikant -->
-    <?php redirect('/') ?>
+    <p>You must be logged in to view this page.</p>
+    <p>Please <a href="/">login</a> to access your account.</p>
     @endauth
     
 </body>

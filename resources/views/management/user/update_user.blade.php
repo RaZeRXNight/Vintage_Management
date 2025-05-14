@@ -10,7 +10,7 @@
     @else 
     <!-- Be present above all else. - Naval Ravikant -->
     <p>You must be logged in to view this page.</p>
-    <p>Please <a href="{{ route('home') }}">login</a> to access your account.</p>
+    <p>Please <a href="/">login</a> to access your account.</p>
     @endauth
     
 </body>

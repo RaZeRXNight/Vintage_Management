@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    // This controller handles the product management functionality
+    // It includes methods for creating, viewing, updating, and deleting products
     public function create_view_product_view(Product $product) {
         $product = Product::find(id: $product->ID);
         if (!$product) {
@@ -70,11 +72,8 @@ class ProductController extends Controller
         
         // Update the product
         // Save the product to the database
-        
         $product->fill(attributes: $incomingfields)->save();
-        
         return redirect("/product_management/view_product/{$product->ID}")->with('success', 'Product updated successfully');
-        
     }
 
     // Create Product View
@@ -110,5 +109,14 @@ class ProductController extends Controller
     return redirect("/product_management/view_product/{$product->ID}");
     }
 
-    
+    // This function will retrieve all products from the database and return them to the view.
+    public function get_all_products() {
+        return Product::all();
+    }
+
+   // This function will retrieve a product by its ID from the database and return it.
+   public function get_product_by_id($id) {
+       return Product::find($id);
+   }
+
 }

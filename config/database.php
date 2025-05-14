@@ -30,15 +30,14 @@ return [
     */
 
     'connections' => [
-
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', 'database-1.c18sgm4iqn9h.us-east-2.rds.amazonaws.com'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'vintage_management'),
-            'username' => env('DB_USERNAME', 'awsadmin'),
-            'password' => env('DB_PASSWORD', 'c5TeSYVF6bI3XAbFpO6z'),
+            'host' => env('DB_HOST', ''),
+            'port' => env('DB_PORT', ''),
+            'database' => env('DB_DATABASE', ''),
+            'username' => env('DB_USERNAME', ''),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),

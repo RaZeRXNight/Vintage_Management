@@ -9,10 +9,14 @@
         <a href='/product_management'>Product Management</a>
 
         <a href='/user_management'>User Management</a>
-        
+
+        <a href='/sale_management'>Sale Management</a>
+
+        <a href='/report_management'>Report Management</a>
         <form action="/logout" method="POST"> @csrf <button>Log Out</button> </form>
     </div>
     @else
+    <h2>Welcome Guest!</h2>
         
     @endauth
 </header>

@@ -43,11 +43,12 @@ return new class extends Migration
 
             $table->longText('ProductName');
             $table->longText('Description')->nullable();
-            $table->decimal('UnitPrice');
-            $table->integer('UnitsInStock');
+            $table->decimal('BuyPrice')->nullable();
+            $table->decimal('UnitPrice')->nullable();
+            $table->integer('UnitsInStock')->nullable();
             $table->integer('UnitsOnOrder')->nullable();
-            $table->smallInteger('ReorderLevel')->nullable(); 
-            $table->boolean('Discontinued')->__call('nullable', [true]);
+            $table->smallInteger('ReorderLevel')->nullable();
+            $table->boolean('Discontinued')->nullable();
             $table->timestamps();
         });
 
