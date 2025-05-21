@@ -41,6 +41,7 @@ Route::get('/sale_management/update_sale/{sale}', [SaleController::class, 'creat
 Route::put('/sale_management/update_sale/{sale}', [SaleController::class, 'update_sale']);
 // Delete Sale
 Route::delete('/sale_management/delete_sale/{sale}', [SaleController::class, 'delete_sale']);
+Route::delete('/sale_management/delete_transaction/{transaction}', [SaleController::class, 'delete_transaction']);
 
 // ------------------------------------------------------
 // User Management Routes

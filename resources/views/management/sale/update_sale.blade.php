@@ -3,7 +3,8 @@
     @include('reusable.head')
 
     <body>
-    @auth
+    @auth('role' == 'admin')
+    
     @include('reusable.navbar')
     
     @else 

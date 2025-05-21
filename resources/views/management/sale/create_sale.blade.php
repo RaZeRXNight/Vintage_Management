@@ -23,12 +23,13 @@
         <section>
             <article class='receipt'>
                 <h3>Receipt</h3>
+                <p id='UserID'><?php echo Auth::id(); ?> </p>
                 <div id='receipt-content'>
                     <!-- Receipt content will be dynamically added here -->
 
                 </div>
                 <button class='print-button' id='print-button'>Print Receipt</button>
-            </article >
+            </article>
             <article id='Transaction'>
                 <h3>Available Products</h3>
                 <div id='row'>

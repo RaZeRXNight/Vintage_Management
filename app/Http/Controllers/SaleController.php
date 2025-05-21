@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Database\Events\TransactionBeginning;
+use illuminate\Support\Facades\Validator;
+use Auth;
 use App\Models\Sale;
 use App\Models\Transaction;
 
@@ -19,48 +22,64 @@ class SaleController extends Controller
     // This function will handle the creation of a new Sale.
     public function create_sale(Request $request) {
     // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
-    echo "<script>alert('Hello World');</script>";
     $cart = $request->input('cart');
     $cartItems = array_map(fn($item) => json_decode($item, true), $cart);
-
-    var_dump($cartItems);
-
-
+    $userid = Auth::id();
+    // Getting Total Quantity and Price for Transaction
+    $T_Quantity = null; $T_Price = null;
+    foreach($cartItems as $cart) {$T_Quantity+=$cart['quantity']; $T_Price+=$cart['total'];}
     
-    $incomingfield = $cart->validate([
-        'id' => ['required'],
+    // Create Transaction
+    $Transaction = Transaction::create(array('UserID' => intval($userid),'Quantity' => $T_Quantity,'TotalPrice' => $T_Price,));
+    $Transaction->save();
+    echo '<table>';
+    foreach($cartItems as $cart) {
+        // Create individual Sales
+        echo "<tr><td>" . $cart['id'] . "</td>";
+        echo "<td>" . $cart['productName'] . "</td>";
+        echo "<td>" . $cart['productPrice'] . "</td>";
+        echo "<td>" . $cart['quantity'] . "</td>";
+        echo "<td>" . $cart['total'] . "</td></tr>";
+      $Sale = Sale::insertGetId(array('UserID' => intval($userid), 'TransactionID' => $Transaction->TransactionID, 'ProductID' => $cart['id'], 'Quantity' => $cart['quantity'],'TotalPrice' => $cart['total']));
+    }
+    echo '</table>';
 
-    ]);
-    
-
-    /* $incomingfields = $request->validate([
-        'ProductID' => ['required', 'min:0', 'max:1000'],
-        'Quantity' => ['required', 'min:0', 'max:1000'],
-        'TotalPrice' => ['required', 'min:0', 'max:10000']
-    ]); */
-    // $sale = Sale::create($incomingfields);
-    // return redirect("/sale_management/view_sale/{$incomingfields['ProductID']}");
+   // return redirect("/sale_management/view_sale/{$Transaction}");
+   return redirect("/sale_management");
     }
 
     // This function will return the view for creating a new sale.
     // This function will handle the creation of a new sale.
-    public function create_view_sale_view(Sale $sale) {
-        $sale = Sale::find(id: $sale->ID);
-        if (!$sale) {
-            return redirect('/sale_management')->with('error', 'Sale not found');
-        }
-
-        return view('management/sale/view_sale', ['sale' => $sale]);
+    public function create_view_sale_view(Transaction $transaction) {
+        $transaction = Sale::find(id: $transaction->TransactionID);
+        return view('management/sale/view_sale', ['transaction' => $transaction]);
     }
 
     public function delete_sale(Sale $sale) {
-        $sale = Sale::find(id: $sale->ID);
+        $sale = Sale::find(id: $sale->SaleID);
         if (!$sale) {
             return redirect('/sale_management')->with('error', 'Sale not found');
         }
 
         // Delete the sale
         $sale->delete();
+
+        return redirect('/sale_management')->with('success', 'Sale deleted successfully');
+    }
+
+    // Delete Transaction
+    public function delete_transaction(Transaction $transaction) {
+        if (!$transaction) {
+            return redirect('/sale_management')->with('error', 'Transaction not found');
+        };
+        $sales = Sale::where('TransactionID',$transaction->TransactionID)->get();
+
+        foreach($sales as $sale) {
+            $sale->delete();
+        };
+        
+        // Delete the sale
+        $transaction->delete();
 
         return redirect('/sale_management')->with('success', 'Sale deleted successfully');
     }

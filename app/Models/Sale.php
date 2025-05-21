@@ -10,6 +10,7 @@ class Sale extends Model
     protected $table = 'sales';
     protected $primaryKey = 'SaleID';
     protected $fillable = [
+        'TransactionID',
         'ProductID',
         'Quantity',
         'TotalPrice',

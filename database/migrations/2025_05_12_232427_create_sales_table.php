@@ -17,7 +17,7 @@ return new class extends Migration
         // The TransactionID will be used to link the transaction to the sales table
         Schema::create('transactions', function (Blueprint $table) {
             $table->id('TransactionID')->primary();
-            $table->foreignId('UserID')->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('UserID');
             $table->integer('Quantity')->nullable();
             $table->decimal('TotalPrice', 10, 2)->nullable();
             $table->string('PaymentMethod')->nullable();
@@ -30,9 +30,9 @@ return new class extends Migration
         // This table will store information about sales made and later be used for reports and deductions from the inventory
         Schema::create('sales', function (Blueprint $table) {
             $table->id('SaleID')->primary();
-            $table->foreignId('TransactionID')->constrained('transactions', 'TransactionID')->onDelete('cascade');
-            $table->foreignId('UserID')->constrained('users', 'id')->onDelete('cascade');
-            $table->foreignId('ProductID')->constrained('products', 'ID')->onDelete('cascade');
+            $table->foreignId('TransactionID');
+            $table->foreignId('UserID');
+            $table->foreignId('ProductID');
             $table->integer('Quantity')->nullable();
             $table->decimal('TotalPrice', 10, 2)->nullable();
             $table->timestamps();
@@ -40,8 +40,8 @@ return new class extends Migration
 
         Schema::create('reports', function (Blueprint $table) {
             $table->id('ReportID')->primary();
-            $table->foreignId('UserID')->constrained('users', 'id')->onDelete('cascade');
-            $table->foreignId('SaleID')->constrained('sales', 'SaleID')->onDelete('cascade');
+            $table->foreignId('UserID');
+            $table->foreignId('SaleID');
             $table->string('ReportType')->nullable();
             $table->text('ReportDetails')->nullable();
             $table->timestamps();

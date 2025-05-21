@@ -8,7 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartAmount = document.getElementById('cart-amount');
     const checkoutForm = document.getElementById('checkout-form');
     const submitButton = document.getElementById('submit-button');
-
+    if (!cartItems || !checkoutForm) {
+        return;
+    }
+    
+    const userID = document.getElementById('UserID').textContent;
+    
     // Event Listeners for add to cart buttons
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', (event) => {
@@ -94,6 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // A Form is Quickly Created and Sent.
             checkoutForm.action = '/sale_management/create_sale';
             checkoutForm.method = 'POST';
+
+            const userinput = document.createElement('input');
+            userinput.name = 'userID';
+            userinput.type = 'hidden';
+            userinput.value = userID;
+            checkoutForm.appendChild(userinput);
 
             cart.forEach(item => {
                 // Creates an Element under the Variable listItems within CartItems.
