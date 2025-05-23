@@ -2,7 +2,7 @@
 
     @auth
     <h2>Welcome User!</h2>
-    <div class="flex flex-row items-center p-7 rounded-2xl">
+    <div class="flex flex-row justify-around items-center p-7 rounded-2xl">
         <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
         <a href='/'>Dashboard</a>
         

@@ -2,6 +2,7 @@
 <?php 
     // Fetch products from the database
     use Illuminate\Support\Facades\DB;
+    use App\Models\Transaction;
     $products = DB::table('products')->get();
     
 ?>
@@ -20,16 +21,53 @@
         
         <!-- Add your sale management content here -->
         <h2>Create Sale</h2>
-        <section>
-            <article class='receipt'>
-                <h3>Receipt</h3>
-                <p id='UserID'><?php echo Auth::id(); ?> </p>
-                <div id='receipt-content'>
-                    <!-- Receipt content will be dynamically added here -->
-
+        <section class='flex justify-evenly'>
+            <article class='w-80 rounded bg-gray-50 px-6 pt-8 shadow-lg'>
+                <div class='flex flex-col justify-center items-center gap-2'>
+                    <h3 class='text-center'>Business Name</h3>
+                    <p class="text-xs">The Address of the Location</p>
                 </div>
-                <button class='print-button' id='print-button'>Print Receipt</button>
+
+                <div class=" border-b border border-dashed"></div>
+
+                <div class='flex flex-col gap-3 border-b py-6 text-xs'>
+                    <span id='receiptid'>Receipt Number: <?php $Entry = Transaction::get()->sortByDesc('TransactionID')->first(); echo $Entry->TransactionID+1; ?></span>
+                    <span  id='UserID'>Cashier ID: <?php echo Auth::id(); ?></span>
+                    <span class="text-xs" id='UserName'>Cashier: <?php echo Auth::user()->name; ?></span>
+                    <span class="text-xs" id='date'> <?php echo now() ?></span>
+                </div>
+
+                <div class='flex flex-col gap-3 pb-6 pt-2 text-xs min-h-[20vh]' id='receipt-content'>
+                    <!-- Receipt content will be dynamically added here -->
+                    <table class='w-full text-left min-h-100h'>
+                        <thead>
+                            <tr>
+                                <th>Price</th><th>Product Name</th><th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody id='receipt-items'>
+                            <!-- Cart items will be dynamically added here -->
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="border-b border border-dashed"></div>
+
+                <div class='flex flex-col gap-3 border-b py-6 text-xs text-center' id='receipt-footer'>
+                    <p> Total: <input class='text-right min-w-10 max-w-15' type='number' id='receipt-total' value='0' readonly step='0.01' /> </p>
+
+                    <div class='flex flex-row gap-3 justify-around' id='PaymentMethod'>
+                        <button class='min-w-fit' id='cash'>Cash</button>
+                        <button class='min-w-fit' id='card'>Card</button>
+                    </div>
+
+                    <form id='checkout-form'> @csrf <button id='submit-button'>Checkout</button> </form>
+
+                    <button class='print-button' id='print-button'>Print Receipt</button>
+                </div>
             </article>
+
             <article id='Transaction'>
                 <h3>Available Products</h3>
                 <div id='row'>
@@ -59,11 +97,6 @@
                 </table>
                 <label for='cart-total'>Total: </label>
                 <input type='number' id='cart-total' value='0' readonly step='0.01' /></br>
-
-                <form id='checkout-form'>
-                    @csrf
-                    <button class='submit-button' id='submit-button'>Checkout</button>
-                </form>
             </article>
         </section>
         
