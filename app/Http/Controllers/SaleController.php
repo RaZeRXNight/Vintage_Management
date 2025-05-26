@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Events\TransactionBeginning;
 use illuminate\Support\Facades\Validator;
 use Auth;
+
+use app\models\Product;
 use App\Models\Sale;
 use App\Models\Transaction;
 
@@ -50,9 +52,12 @@ class SaleController extends Controller
 
     // This function will return the view for creating a new sale.
     // This function will handle the creation of a new sale.
-    public function create_view_sale_view(Transaction $transaction) {
-        $transaction = Sale::find(id: $transaction->TransactionID);
-        return view('management/sale/view_sale', ['transaction' => $transaction]);
+    public function create_view_transaction_view(Transaction $transaction) {
+        $transaction = Transaction::find(id: $transaction->TransactionID);
+        $Sales = Sale::where('TransactionID',$transaction->TransactionID, null)->get();
+        
+        
+        return view('management/sale/view_transaction', ['transaction' => $transaction, 'Sales' => $Sales]);
     }
 
     public function delete_sale(Sale $sale) {

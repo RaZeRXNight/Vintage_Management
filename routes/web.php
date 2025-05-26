@@ -35,7 +35,7 @@ Route::get('/sale_management', function () { $sales = Sale::all(); $transactions
 Route::get('/sale_management/create_sale', [SaleController::class, 'create_sale_view']);
 Route::post('/sale_management/create_sale', [SaleController::class, 'create_sale'])->name('sale_management.create_sale');
 // View Sale
-Route::get('/sale_management/view_sale/{sale}', [SaleController::class, 'create_view_sale_view']);
+Route::get('/sale_management/view_transaction/{transaction}', [SaleController::class, 'create_view_transaction_view']);
 // Update Sale
 Route::get('/sale_management/update_sale/{sale}', [SaleController::class, 'create_update_sale_view']);
 Route::put('/sale_management/update_sale/{sale}', [SaleController::class, 'update_sale']);

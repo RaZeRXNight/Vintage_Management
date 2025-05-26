@@ -83,30 +83,40 @@ class ProductController extends Controller
     }
     public function create_product(Request $request) {
     // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
-    $incomingfields = $request->validate([
-        'ProductIMG' => ['nullable', 'image', 'max:4096'],
-        'SupplierID' => ['min:0', 'max:1000'],
-        'ProductName' => ['required', 'min:0', 'max:50'], 
-        'CategoryID' => ['min:0', 'max:1000'],
-        'Description' => ['nullable', 'min:0', 'max:50'],
-        'UnitPrice' => ['required', 'min:0', 'max:1000'],
-        'UnitsInStock' => ['required', 'min:0', 'max:1000'],
-        'UnitsOnOrder' => ['required', 'min:0', 'max:1000'],
-        'ReorderLevel' => ['required', 'min:0', 'max:10'],
-        'Discontinued' => ['required']
-    ]);
+
+
+
+    // $incomingfields = $request->validate([
+    //     'ProductIMG' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+    //     'SupplierID' => ['min:0', 'max:1000'],
+    //     'ProductName' => ['required', 'min:0', 'max:50'], 
+    //     'CategoryID' => ['min:0', 'max:1000'],
+    //     'Description' => ['nullable', 'min:0', 'max:50'],
+    //     'UnitPrice' => ['required', 'min:0', 'max:1000'],
+    //     'UnitsInStock' => ['nullable', 'min:0', 'max:1000'],
+    //     'UnitsOnOrder' => ['nullable', 'min:0', 'max:1000'],
+    //     'ReorderLevel' => ['nullable', 'min:0', 'max:10'],
+    //     'Discontinued' => ['required']
+    // ]);
+
+    echo $request->ProductIMG;
+
 
     // The ImageUploadController is used to upload the image to the server.
     // The ImageUploadController will return the path to the image, which is then stored in the ProductIMG field.
-    if($request->hasFile('ProductIMG')) { // Check if the request has a file
-        echo $incomingfields['ProductIMG']; 
-        $imageUploadController = new ImageUploadController(); // Create an instance of ImageUploadController
-        // Call the upload method with the request
-        $incomingfields['ProductIMG'] = $imageUploadController->upload($request, 'uploads/product_images'); 
-    } 
+
+
+    // if($request->hasFile('ProductIMG')) { // Check if the request has a file
+    //     echo $incomingfields['ProductIMG']; 
+    //     $imageUploadController = new ImageUploadController(); // Create an instance of ImageUploadController
+    //     // Call the upload method with the request
+    //     $incomingfields['ProductIMG'] = $imageUploadController->upload($request, 'storage'); 
+    // } 
+
+
     
-    $product = Product::create($incomingfields);
-    return redirect("/product_management/view_product/{$product->ID}");
+    // $product = Product::create($incomingfields);
+    // return redirect("/product_management/view_product/{$product->ID}");
     }
 
     // This function will retrieve all products from the database and return them to the view.

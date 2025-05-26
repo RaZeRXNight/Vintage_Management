@@ -2,16 +2,16 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     @include('reusable.head')
 
-    <body>
+    <body class='flex flex-col '>
     @auth
     @include('reusable.navbar')
-    <div class="container">
+    <main class='container self-center' >
+    <div class="text-center">
         <h1>Sale Management</h1>
         <p>Welcome to the Sale Management page!</p>
         <p>Here you can manage your sales effectively.</p>
         
-        <a href='/sale_management/create_sale' class="btn btn-primary mb-4">Create Sale</a>
-        <a href='/sale_management/create_transaction' class="btn btn-primary mb-4">Create Transaction</a>
+        <a href='/sale_management/create_sale' class="btn btn-primary mb-4"><h1>Create Sale</h1></a>
     </div>
    <div class="container mx-auto">
        <h1 class="text-2xl font-bold mb-4">Transactions Management</h1>
@@ -31,13 +31,13 @@
            <tbody>
                @foreach ($transactions as $transaction)
                    <tr>
-                       <td class="py-2 px-4 border-b"><a href="/sale_management/view_sale/{{ $transaction->TransactionID }}"> {{ $transaction->TransactionID }} </a></td>
+                       <td class="py-2 px-4 border-b"><a href="/sale_management/view_transaction/{{ $transaction->TransactionID }}"> {{ $transaction->TransactionID }} </a></td>
                        <td class="py-2 px-4 border-b">{{ $transaction->UserID }}</td>
                        <td class="py-2 px-4 border-b">{{ $transaction->Quantity }}</td>
                        <td class="py-2 px-4 border-b">${{ $transaction->TotalPrice }}</td>
                        <td class="py-2 px-4 border-b">{{ $transaction->created_at }}</td>
                        @if(auth()->user() && auth()->user()->role === 'admin')
-                            <td class="py-2 px-4 border-b"><a href="/sale_management/update_sale/{{ $transaction->TransactionID }}">Manage</a></td>
+                            <td class="py-2 px-4 border-b"><a href="/sale_management/update_transaction/{{ $transaction->TransactionID }}">Manage</a></td>
                             <td><form action="/sale_management/delete_transaction/{{ $transaction->TransactionID }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
@@ -49,6 +49,7 @@
            </tbody>
        </table>
    </div>
+    </main>
     @else
     <!-- Be present above all else. - Naval Ravikant -->
     <p>You must be logged in to view this page.</p>
