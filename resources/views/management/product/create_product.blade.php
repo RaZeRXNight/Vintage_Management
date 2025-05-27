@@ -11,7 +11,7 @@
             <h1 class='text-lg'>Create Product</h1>
             <p>Fill in the details below to create a new product.</p>
         </div>
-        <form class='container flex flex-col gap-10 min-w-75' action="/product_management/create_product" method="POST">
+        <form class='container flex flex-col gap-10 min-w-75' action="/product_management/create_product" enctype="multipart/form-data"  method="POST">
             @csrf
             <section class='flex flex-col pb-3 border-b-1 border-dashed mb-2'>
                 <div class="text-center p-2">
@@ -77,7 +77,6 @@
                         <option class='text-center' value="1">Yes</option>
                     </select>
                 </div>
-
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Create Product</button>
                 </div>

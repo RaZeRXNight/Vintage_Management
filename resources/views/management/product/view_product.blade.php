@@ -12,6 +12,7 @@
             <h1>View Product</h1>
             <!-- Add your product view content here -->
             <div class="product-details">
+                <img src='{{ asset('storage/'. $product->ProductIMG) }}' alt='Product Image' />
                 <h2>Product ID: {{ $product->ID }}</h2>
                 <p><strong>Name:</strong> {{ $product->ProductName }}</p>
                 <p><strong>Description:</strong> {{ $product->Description }}</p>
