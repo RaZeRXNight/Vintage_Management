@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cartItems || !checkoutForm) {
         return;
     }
-    
+
     const userID = document.getElementById('UserID').textContent;
-    
+
     // Event Listeners for add to cart buttons
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', (event) => {
@@ -57,15 +57,51 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Updating cart...');
         // Current Cart Items
         console.log(JSON.stringify(cart, null, 4));
-        cartItems.innerHTML = ''; 
-        receiptItems.innerHTML = ''; 
+        cartItems.innerHTML = '';
+        receiptItems.innerHTML = '';
         let total = 0;
         cart.forEach(item => {
+            let productName = item.productName;
+            const imgElement = document.getElementById('product-img-' + item.id);
+            const listImage = imgElement ? imgElement.src : '';
             // Creates an Element under the Variable listItems within CartItems.
-            const listItem = document.createElement('tr');
-            listItem.innerHTML = `<td>${item.productName}</td><td>$${item.productPrice}</td>
-            <td>${item.quantity}</td><td>$${item.total.toFixed(2)}</td>
-            <td><button class="remove-from-cart" data-id="${item.id}">Remove</button></td>`;
+
+            console.log(listImage);
+
+            const listItem = document.createElement('div');
+            listItem.className = 'flex flex-col justify-end min-h-50 max-w-50 min-w-fit';
+            listItem.innerHTML = '<button class="remove-from-cart" id=' + item.id + '>' +
+                '<img class="rounded-t-2xl max-w-35 max-h-35" src=' + listImage + ' alt="Product Image" /> ' +
+                '</button>' + '<div class="flex flex-col max-w-full border divide-x-1 text-center">' +
+                '<span>' + item.productName + '</span></div>' +
+                '<div class="flex flex-row justify-around max-w-full border"><span>' + item.quantity + '</span>' +
+                '<span>$' + item.total.toFixed(2) + '</span></div>';
+
+            // listItem.innerHTML = `<td>${item.productName}</td>
+            // <td>$${item.productPrice}</td>
+            // <td>${item.quantity}</td><td>$${item.total.toFixed(2)}</td>
+            // <td><button class="remove-from-cart" data-id="${item.id}">Remove</button></td>`;
+
+            // <td>${item.productName}</td>
+            // <td>$${item.productPrice}</td>
+            // <td>${item.quantity}</td><td>$${item.total.toFixed(2)}</td>';
+
+            // product-card' data-id='{{ $product->ID }}'
+            //     data-name='{{ $product->ProductName }}' data-price='{{ $product->UnitPrice }}'
+            //     data-quantity='{{ $product->UnitsInStock }}'>
+
+            //     <div class='flex flex-col max-w-full border divide-x-1 text-center'>
+            //         <div class='max-w-full border text-center'>
+            //             <span>{{ $product->ProductName }}</span>
+            //         </div>
+
+            //         <div class='flex flex-row justify-around max-w-full border'>
+            //             <span>${{ $product->UnitPrice }}</span>
+            //             <span>{{ $product->UnitsInStock }}</span>
+            //         </div>
+            //     </div>
+            // </div>
+
             total += item.total;
             // Adds the listItem to the CartItems variable.
             // This is where the listItem is displayed on the HTML page.
@@ -76,17 +112,20 @@ document.addEventListener('DOMContentLoaded', () => {
             receiptItems.appendChild(receiptlistItem);
         });
         // Updates the total price
-            
+
         console.log('Total:', total);
         cartTotal.value = `${total.toFixed(2)}`;
         receiptTotal.value = `${total.toFixed(2)}`;
     }
     // Event Listener for remove from cart buttons
     cartItems.addEventListener('click', (event) => {
-        if (event.target.classList.contains('remove-from-cart')) {
-            const productId = event.target.dataset.id;
+        const removeBtn = event.target.closest('.remove-from-cart');
+        if (removeBtn) {
+
+            const productId = removeBtn.id;
             const productIndex = cart.findIndex(item => item.id === productId);
-            if (productIndex > -1 ) {
+
+            if (productIndex > -1) {
                 if (cart[productIndex].quantity > 1) {
                     cart[productIndex].quantity -= 1;
                     cart[productIndex].total = cart[productIndex].productPrice * cart[productIndex].quantity;
@@ -108,10 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 Payselected = button.textContent;
             };
-            
+
         })
     });
-    
+
     submitButton.addEventListener('click', (event) => {
         if (cart.length === 0) {
             event.preventDefault();
@@ -119,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // Here you can handle the form submission, e.g., send cart data to the server
             event.preventDefault();
-            
+
             // A Form is Quickly Created and Sent.
             checkoutForm.action = '/sale_management/create_sale';
             checkoutForm.method = 'POST';
@@ -133,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cart.forEach(item => {
                 // Creates an Element under the Variable listItems within CartItems.
                 const inputlist = document.createElement('input');
-                inputlist.type ='hidden';
+                inputlist.type = 'hidden';
                 inputlist.name = 'cart[]';
                 inputlist.value = JSON.stringify(item);
                 checkoutForm.appendChild(inputlist);
@@ -152,5 +191,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         console.log('Form submitted with cart:', cart);
     });
-    
+
 });

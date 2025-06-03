@@ -18,6 +18,7 @@ class Product extends Model
         'ProductIMG',
         'SupplierID',
         'CategoryID',
+        'Size',
         'Description',
         'UnitPrice',
         'UnitsInStock',

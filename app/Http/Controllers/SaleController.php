@@ -7,6 +7,7 @@ use Auth;
 
 use app\models\Product;
 use App\Models\Sale;
+use App\Models\Categorie;
 use App\Models\Transaction;
 
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class SaleController extends Controller
     // Create Product View
     // This function will return the view for creating a new product.
     public function create_sale_view() {
-        return view('management/sale/create_sale');
+        return view( 'management/sale/create_sale');
     }
     // Create Sale
     // This function will handle the creation of a new Sale.

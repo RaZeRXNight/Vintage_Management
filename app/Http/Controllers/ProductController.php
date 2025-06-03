@@ -87,10 +87,11 @@ class ProductController extends Controller
 
 
     $incomingfields = $request->validate([
-        'ProductIMG' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+        'ProductIMG' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         'SupplierID' => ['min:0', 'max:1000'],
         'ProductName' => ['required', 'min:0', 'max:50'], 
         'CategoryID' => ['min:0', 'max:1000'],
+        'Size' => ['required'],
         'Description' => ['nullable', 'min:0', 'max:50'],
         'UnitPrice' => ['required', 'min:0', 'max:1000'],
         'UnitsInStock' => ['nullable', 'min:0', 'max:1000'],
@@ -113,6 +114,8 @@ class ProductController extends Controller
     $product = Product::create($incomingfields);
     return redirect("/product_management/view_product/{$product->ID}");
     }
+
+    
 
     // This function will retrieve all products from the database and return them to the view.
     public function get_all_products() {

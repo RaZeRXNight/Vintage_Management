@@ -43,6 +43,10 @@ Route::put('/sale_management/update_sale/{sale}', [SaleController::class, 'updat
 Route::delete('/sale_management/delete_sale/{sale}', [SaleController::class, 'delete_sale']);
 Route::delete('/sale_management/delete_transaction/{transaction}', [SaleController::class, 'delete_transaction']);
 
+// Report Management Routes
+// View All Reports
+Route::get('/report_management', function () { $products = Product::all(); $sales = Sale::all(); $transactions = Transaction::all(); return view('management/report/report_management', ['products' => $products, 'sales' => $sales, 'transactions' => $transactions]); });
+
 // ------------------------------------------------------
 // User Management Routes
 // View Changes

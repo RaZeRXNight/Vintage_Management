@@ -9,18 +9,14 @@
 
     <section>
         <h2>All Users</h2>
-        <table>
+        <table class='list-table'>
         @foreach($users as $user => $Data) 
             <tr>
                 <td>{{$Data['id']}}</td> 
-                <td>{{$Data['name']}}</td> 
+                <td><a href='user_management/view_user/{{$Data['id']}}'>{{$Data['name']}}</a></td> 
                 <td>{{$Data['email']}}</td> 
-                
-                <div>
-                <a href='user_management/view_user/{{$Data['id']}}'>View</a>
-                <a href='user_management/update_user/{{$Data['id']}}'>Update</a>
-                <a href='user_management/delete_user/{{$Data['id']}}'>Delete</a>
-                </div>
+                <td><a href='user_management/update_user/{{$Data['id']}}'>Update</a></td>
+                <td><a href='user_management/delete_user/{{$Data['id']}}'>Delete</a></td>
             </tr>
         @endforeach
         </table>

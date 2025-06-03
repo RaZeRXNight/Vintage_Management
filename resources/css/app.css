@@ -9,5 +9,78 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --blur-2xs: 2px;
+    
 }
 
+body {
+    @apply bg-gradient-to-b from-gray-50 to-75%  ; 
+}
+/* Headers */
+h1 {@apply text-3xl text-center;}
+h2 {@apply text-2xl text-center;}
+h3 {@apply text-lg text-center;}
+
+
+/* Buttons */
+a {
+    @apply text-red-400 min-w-fit;
+}
+
+button {
+    @apply text-red-400 min-w-fit cursor-pointer;
+}
+
+
+
+.content {
+    @apply container flex flex-col items-center  rounded-2xl p-5 m-10 border-2 max-w-5/10 ;
+}
+
+    .content div {
+        @apply flex flex-row justify-around;
+    }
+
+/* Rounded containers */
+.rounded-side-container {
+    @apply container border rounded-4xl p-5 bg-white border-gray-200 max-w-1/6 min-w-fit;
+}
+
+.rounded-main-container {
+    @apply container border rounded-4xl p-5 bg-white border-gray-200 max-w-4/6 min-w-fit;
+}
+
+
+.list-table {
+    @apply border-2 rounded-2xl max-w-20 min-w-full bg-white border-gray-200;
+}
+
+    .list-table thead tr th {
+        @apply py-2 px-4 border-b;
+    }
+
+    .list-table tbody tr {
+        @apply bg-blend-darken;
+    }
+
+        .list-table tbody tr td {
+            @apply py-2 px-4 border-b text-center;
+        }
+
+
+/* Forms */
+.form-content {
+    @apply container flex flex-col min-w-75 gap-5;
+}
+
+.form-group {
+    @apply flex flex-col;
+}
+
+.form-section {
+    @apply flex flex-col p-2 pb-4 border-b-1 border-dashed gap-2 justify-around text-center;
+}
+
+.form-group-row {
+    @apply flex flex-row justify-around text-center;
+}

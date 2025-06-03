@@ -15,29 +15,29 @@
     </div>
    <div class="container mx-auto">
        <h1 class="text-2xl font-bold mb-4">Transactions Management</h1>
-       <table class="min-w-full bg-white border border-gray-200">
+       <table class="list-table">
            <thead>
                <tr>
-                   <th class="py-2 px-4 border-b">Transaction ID</th>
-                   <th class="py-2 px-4 border-b">User ID</th>
-                   <th class="py-2 px-4 border-b">Quantity</th>
-                   <th class="py-2 px-4 border-b">Total Price</th>
-                   <th class="py-2 px-4 border-b">Transaction Date</th>
+                   <th>Transaction ID</th>
+                   <th>User ID</th>
+                   <th>Quantity</th>
+                   <th>Total Price</th>
+                   <th>Transaction Date</th>
                    @if(auth()->user() && auth()->user()->role === 'admin')
-                       <th class="py-2 px-4 border-b">Actions</th>
+                       <th>Actions</th>
                    @endif
                </tr>
            </thead>
            <tbody>
                @foreach ($transactions as $transaction)
                    <tr>
-                       <td class="py-2 px-4 border-b"><a href="/sale_management/view_transaction/{{ $transaction->TransactionID }}"> {{ $transaction->TransactionID }} </a></td>
-                       <td class="py-2 px-4 border-b">{{ $transaction->UserID }}</td>
-                       <td class="py-2 px-4 border-b">{{ $transaction->Quantity }}</td>
-                       <td class="py-2 px-4 border-b">${{ $transaction->TotalPrice }}</td>
-                       <td class="py-2 px-4 border-b">{{ $transaction->created_at }}</td>
+                       <td><a href="/sale_management/view_transaction/{{ $transaction->TransactionID }}"> {{ $transaction->TransactionID }} </a></td>
+                       <td>{{ $transaction->UserID }}</td>
+                       <td>{{ $transaction->Quantity }}</td>
+                       <td>${{ $transaction->TotalPrice }}</td>
+                       <td>{{ $transaction->created_at }}</td>
                        @if(auth()->user() && auth()->user()->role === 'admin')
-                            <td class="py-2 px-4 border-b"><a href="/sale_management/update_transaction/{{ $transaction->TransactionID }}">Manage</a></td>
+                            <td><a href="/sale_management/update_transaction/{{ $transaction->TransactionID }}">Manage</a></td>
                             <td><form action="/sale_management/delete_transaction/{{ $transaction->TransactionID }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

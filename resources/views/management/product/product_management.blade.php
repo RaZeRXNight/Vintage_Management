@@ -3,51 +3,95 @@
 
 @include('reusable.head')
 
+@php
+    use App\Models\Categorie;
+    $Categories = Categorie::All();
+@endphp
+
+<form id='Hidden-Stash' hidden>
+    <input type='hidden' id='products-data' value='@json($products)'>
+</form>
+
 <body>
     @auth
-    @include('reusable.navbar')
+    @include('Reusable.navbar')
 
-    <div class="content">
-        <!-- Add your content here -->
-        <a class="btn btn-primary" href='/product_management/create_product' >Create Product</a>
-        <h1>Product Management</h1>
-        <p>Manage your products efficiently.</p>
-    </div>
-
-    <section class="product-list">
-        <h2>Product List</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Product ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Product rows will be populated here -->
-
-                @foreach ($products as $product => $details)
-                <tr>
-                    <td>{{ $details->ID }}</td>
-                    <td><a href="/product_management/view_product/{{ $details->ID }}">{{ $details->ProductName }}</td>
-                    <td>{{ $details->Description }}</td>
-                    <td>{{ $details->UnitPrice }}</td>
-                    
-                    <td>
-                        <a href="/product_management/edit_product/{{ $details->ID }}" class="btn btn-warning">Edit</a>
-                        <form action="/product_management/delete_product/{{ $details->ID }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                @endforeach
-            </tbody>
-        </table>
+    <section class='flex flex-row min-w-full justify-center'>
+        <div class="content">
+            <!-- Add your content here -->
+            <h1>Product Management</h1>
+            <p>Manage your products efficiently.</p>
+            <div>
+            <a class="btn btn-primary" href='/product_management/create_product' >Create Product</a>
+            </div>
+        </div>
     </section>
+
+    <main class='flex flex-row justify-evenly'>
+
+        <!-- Products -->
+        <section class="rounded-main-container">
+            <div class='flex flex-col justify-center'>
+                <h2>Product List</h2>
+                <h3 id='Current_Filter'>Showing All</h3>
+            </div>
+            <table class="list-table">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id='product-items'>
+                    <!-- Product rows will be populated here -->
+
+                    @foreach ($products as $product => $details)
+                    <tr>
+                        <td>{{ $details->ID }}</td>
+                        <td><a href="/product_management/view_product/{{ $details->ID }}">{{ $details->ProductName }}</td>
+                        <td>{{ $details->Description }}</td>
+                        <td>${{ $details->UnitPrice }}</td>
+                        <td><a href="/product_management/edit_product/{{ $details->ID }}" class="btn btn-warning">Edit</a></td>
+                        <td>
+                            <form action="/product_management/delete_product/{{ $details->ID }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    @endforeach
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Categories -->
+        <section class="rounded-side-container">
+            <h2>Categories</h2>
+            <table class="list-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody id='Category-items'>
+                    <!-- Product rows will be populated here -->
+                    <tr>
+                        <td><button data-id=0>All</button></td>
+                    <tr>
+                    @foreach ($Categories as $Category => $details)
+                    <tr>
+                        <td><button data-id={{ $details->ID }}>{{ $details->CategoryName }}</button></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+        </section>
+    </main>
     @else 
     <!-- Be present above all else. - Naval Ravikant -->
     <p>You must be logged in to view this page.</p>

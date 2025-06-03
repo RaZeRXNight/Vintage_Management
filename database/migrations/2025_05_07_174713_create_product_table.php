@@ -42,6 +42,7 @@ return new class extends Migration
             $table->longText('ProductIMG')->nullable();
 
             $table->longText('ProductName');
+            $table->text('Size')->nullable();
             $table->longText('Description')->nullable();
             $table->decimal('BuyPrice')->nullable();
             $table->decimal('UnitPrice')->nullable();
@@ -57,9 +58,9 @@ return new class extends Migration
         DB::table('products')->insert([
             [
                 'ProductName' => 'Sample Product',
-                'CategoryID' => 1,
+                'Size' => 'S',
                 'Description' => 'This is a sample product',
-                'UnitPrice' => 19.99,
+                'UnitPrice' => 15,
                 'UnitsInStock' => 100,
                 'UnitsOnOrder' => 50,
                 'ReorderLevel' => 10,
