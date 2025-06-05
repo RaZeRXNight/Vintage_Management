@@ -12,48 +12,58 @@
     @auth
         @include('Reusable.navbar')
 
-        <main class='flex flex-col justify-around border rounded-4xl p-10 justify-self-center min-h-full'>
-            <div class='form-section'>
+        <main class='flex flex-col justify-self-center min-h-full '>
+            <div class='form-section border-b-1 border-dashed'>
                 <h1 class='text-lg'>Create Product</h1>
                 <p>Fill in the details below to create a new product.</p>
+                
             </div>
 
-            <form class='form-content' action="/product_management/create_product"
-                enctype="multipart/form-data" method="POST">
+            <form class='form-content flex flex-col min-w-9/10' action="/product_management/create_product" enctype="multipart/form-data" method="POST">
                 @csrf
-                <section class='form-section'>
-                    <div class="text-center p-2">
-                        <label for="ProductName">Product Name:</label> <br />
-                        <input class='border text-center rounded-2xl min-w-full' type="text" name="ProductName" required>
-                    </div>
 
-                    <div class="text-center p-2">
-                        <label for="ProductIMG">Product Image:</label> <br />
-                        <input class='text-sm text-center border' type="file" id="ProductIMG" name="ProductIMG"
-                            accept="image/*">
-                    </div>
+                <div class='text-center'>
+                    <label for="Amount">Amount:</label> <br />
+                    <select class='border text-center rounded-2xl min-w-full' type="number" class="form-control" id="Amount" name="Amount" required>
+                        <option disabled selected value='N/A'>Select an Amount</option>
+                        <option value='0'>Singular</option>
+                        <option value='1'>Multiple</option>
+                    </select>
+                </div>
 
-                    <div class="text-center p-2">
-                        <label for="Description">Product Description:</label> </br>
-                        <small>Use Markdown syntax for formatting.</small> </br>
-                        <textarea class='border rounded-b-3xl min-w-full' id="Description" name="Description"></textarea>
-                    </div>
-                </section>
+                <div class='bi-column-section border-b-1 border-dashed'>
+                    <section class='form-section'>
+                        <div class="text-center p-2">
+                            <label for="ProductName">Product Name:</label> <br />
+                            <input class='border text-center rounded-2xl min-w-full' type="text" name="ProductName" required>
+                        </div>
 
-                <section class='form-section'>
-                    <div>
-                        <label for="Size">Size:</label> <br />
-                        <select class='border text-center rounded-2xl min-w-full' type="number" class="form-control"
-                            id="Size" name="Size">
-                            <option value='0' disabled selected>Select A Size</option>
-                            <option value='N/A' >N/A</option>
-                            @foreach($Sizes as $Size)
-                                <option value={{ $Size }}>{{ $Size }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="text-center p-2">
+                            <label for="ProductIMG">Product Image:</label> <br />
+                            <input class='text-sm text-center border' type="file" id="ProductIMG" name="ProductIMG"
+                                accept="image/*">
+                        </div>
 
-                    <div class="form-group-row" class=''>
+                        <div class="text-center p-2">
+                            <label for="Description">Product Description:</label> </br>
+                            <small>Use Markdown syntax for formatting.</small> </br>
+                            <textarea class='border rounded-b-3xl min-w-full' id="Description" name="Description"></textarea>
+                        </div>
+                    </section>
+
+                    <section class='form-section'>
+                        <div class=''>
+                            <label for="Size">Size:</label> <br />
+                            <select class='border text-center rounded-2xl min-w-full' type="number" class="form-control"
+                                id="Size" name="Size">
+                                <option value='0' disabled selected>Select A Size</option>
+                                <option value='N/A' >N/A</option>
+                                @foreach($Sizes as $Size)
+                                    <option value={{ $Size }}>{{ $Size }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div>
                             <label for="SupplierID">Supplier ID:</label> <br />
                             <input class='text-center border rounded-2xl' type="number" class="form-control" id="SupplierID"
@@ -70,11 +80,10 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                </section>
-
-                <section class='flex flex-row pb-3 border-b-1 gap-2 border-dashed mb-3 justify-around text-center'>
-
+                    </section>
+                </div>
+                
+                <section class='bi-column-section'>
                     <div class="form-group">
                         <div>
                             <label for="UnitPrice">Product Selling Price:</label> <br />
@@ -103,7 +112,7 @@
                     </div>
                 </section>
 
-                <section class='flex flex-col pb-3 border-b-1 border-dashed mb-3 justify-around text-center'>
+                <section class='flex flex-col p-5 mb-3 gap-2 border-b-1 border-dashed  justify-around text-center'>
                     <div class="flex flex-col border-dashed justify-around text-center">
                         <select class="form-control" id="Discontinued" name="Discontinued" required>
                             <option class='text-center' value="" disabled selected>Select Discontinued Status</option>
@@ -115,7 +124,6 @@
                         <button type="submit" class="btn btn-primary">Create Product</button>
                     </div>
                 </section>
-                </div>
             </form>
         </main>
     @else

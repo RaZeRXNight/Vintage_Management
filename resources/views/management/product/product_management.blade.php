@@ -15,6 +15,7 @@
 <body>
     @auth
     @include('Reusable.navbar')
+    <main>
 
     <section class='flex flex-row min-w-full justify-center'>
         <div class="content">
@@ -26,14 +27,13 @@
             </div>
         </div>
     </section>
-
-    <main class='flex flex-row justify-evenly'>
-
+    
+    <article class='flex flex-row justify-evenly max-h-fit'>
         <!-- Products -->
         <section class="rounded-main-container">
             <div class='flex flex-col justify-center'>
-                <h2>Product List</h2>
                 <h3 id='Current_Filter'>Showing All</h3>
+                <input class='text-center' id='Search' type='text' placeholder='Search for Product'>
             </div>
             <table class="list-table">
                 <thead>
@@ -48,24 +48,11 @@
                 </thead>
                 <tbody id='product-items'>
                     <!-- Product rows will be populated here -->
-
-                    @foreach ($products as $product => $details)
-                    <tr>
-                        <td>{{ $details->ID }}</td>
-                        <td><a href="/product_management/view_product/{{ $details->ID }}">{{ $details->ProductName }}</td>
-                        <td>{{ $details->Description }}</td>
-                        <td>${{ $details->UnitPrice }}</td>
-                        <td><a href="/product_management/edit_product/{{ $details->ID }}" class="btn btn-warning">Edit</a></td>
-                        <td>
-                            <form action="/product_management/delete_product/{{ $details->ID }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    @endforeach
                 </tbody>
             </table>
+            <div class='pagination-controls' id='pagination-controls'>
+                    
+            </div>
         </section>
 
         <!-- Categories -->
@@ -91,6 +78,7 @@
             </table>
 
         </section>
+    </article>
     </main>
     @else 
     <!-- Be present above all else. - Naval Ravikant -->

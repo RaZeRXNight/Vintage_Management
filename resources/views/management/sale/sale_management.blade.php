@@ -5,14 +5,18 @@
     <body class='flex flex-col '>
     @auth
     @include('reusable.navbar')
-    <main class='container self-center' >
-    <div class="text-center">
+    <main class='container self-center'>
+
+    <section class='flex flex-row min-w-full justify-center'>
+        <div class="content">
         <h1>Sale Management</h1>
         <p>Welcome to the Sale Management page!</p>
         <p>Here you can manage your sales effectively.</p>
         
         <a href='/sale_management/create_sale' class="btn btn-primary mb-4"><h1>Create Sale</h1></a>
-    </div>
+        </div>
+    </section>
+
    <div class="container mx-auto">
        <h1 class="text-2xl font-bold mb-4">Transactions Management</h1>
        <table class="list-table">

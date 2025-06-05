@@ -57,7 +57,9 @@ class SaleController extends Controller
         $transaction = Transaction::find(id: $transaction->TransactionID);
         $Sales = Sale::where('TransactionID',$transaction->TransactionID, null)->get();
         
-        
+        if (!$transaction) {
+            return redirect('/sale_management')->with('error', 'Transaction not found');
+        }
         return view('management/sale/view_transaction', ['transaction' => $transaction, 'Sales' => $Sales]);
     }
 

@@ -8,7 +8,6 @@
     
     @else 
     @include('reusable.login')
-    @include('reusable.register')
     @endauth
     
     </body>

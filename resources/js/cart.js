@@ -22,11 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const userID = document.getElementById('UserID').textContent;
 
+    
+
     // Event Listeners for add to cart buttons
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', (event) => {
+    document.getElementById('cart-product-items').addEventListener('click', function(event) {
+        const btn = event.target.closest('.add-to-cart');
+        if (btn) {
             console.log('Add to cart button clicked');
-            const productRow = event.target.closest('.product-card');
+            const productRow = btn.closest('.product-card');
             const productId = productRow.dataset.id;
             const productName = productRow.dataset.name;
             const productPrice = parseFloat(productRow.dataset.price);
@@ -48,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Product price:', productPrice);
             }
             updateCart();
-        });
+        };
     });
 
     function updateCart() {

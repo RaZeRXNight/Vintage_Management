@@ -48,7 +48,10 @@ $total = null;
                                 <tr>  <?php  $total+=$sale->TotalPrice; ?>
                                     <td>{{ $sale->TotalPrice }}</td>
                                     <td>
-                                        <?php echo Product::where('ID', $sale->ProductID)->first()->ProductName; ?>
+                                        <?php 
+                                            echo Product::where('ID', $sale->ProductID)
+                                            ->firstOrFail()->ProductName; 
+                                        ?>
                                     </td>
                                     <td>{{$sale->Quantity}}</td>
                                 </tr>

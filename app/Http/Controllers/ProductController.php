@@ -84,9 +84,8 @@ class ProductController extends Controller
     public function create_product(Request $request) {
     // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
 
-
-
     $incomingfields = $request->validate([
+        'Amount' => ['nullable'],
         'ProductIMG' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         'SupplierID' => ['min:0', 'max:1000'],
         'ProductName' => ['required', 'min:0', 'max:50'], 
@@ -110,9 +109,24 @@ class ProductController extends Controller
         // Call the upload method with the request
         $incomingfields['ProductIMG'] = $imageUploadController->upload($request, 'storage'); 
     } 
+
+    if ($request['Amount'] && $request['Amount'] == 1) {
+        $Standard_Size = ['S', 'M', 'L', "XL", 'XXL'];
+        foreach($Standard_Size as $Size) {
+            $product = $incomingfields;
+            $product['ProductName'].= ' ' . $Size; 
+            $product['Size'] = $Size;
+            
+            $product = Product::create($product);
+            return redirect("/product_management/");
+        }
+        
+    } else {
+        $product = Product::create($incomingfields);
+        return redirect("/product_management/view_product/{$product->ID}");
+    }
     
-    $product = Product::create($incomingfields);
-    return redirect("/product_management/view_product/{$product->ID}");
+    
     }
 
     

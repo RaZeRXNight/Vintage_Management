@@ -7,7 +7,7 @@
     @auth
     @include('reusable.navbar')
 
-    <section>
+    <main>
         <h2>All Users</h2>
         <table class='list-table'>
         @foreach($users as $user => $Data) 
@@ -20,7 +20,7 @@
             </tr>
         @endforeach
         </table>
-    </section>
+    </main>
     
     @else 
     <!-- Be present above all else. - Naval Ravikant -->
