@@ -10,7 +10,7 @@ class Product extends Model
     //
     use HasFactory;
     protected $table = 'products';
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
 
     /** @var list<string> */
     protected $fillable = [

@@ -8,7 +8,7 @@ class Sale extends Model
 {
     //
     protected $table = 'sales';
-    protected $primaryKey = 'SaleID';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'TransactionID',
         'ProductID',
@@ -17,7 +17,7 @@ class Sale extends Model
     ];
     public $timestamps = true;
     protected $casts = [
-        'SaleID' => 'integer',
+        'id' => 'integer',
         'ProductID' => 'integer',
         'Quantity' => 'integer',
         'TotalPrice' => 'decimal:2',

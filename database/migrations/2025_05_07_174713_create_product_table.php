@@ -14,8 +14,38 @@ return new class extends Migration
         // Creating the productcategories table
         // This table will hold the product categories
         Schema::create('categories', function (Blueprint $table) {
-            $table->id('ID')->primary()->autoIncrement();
+            $table->id();
             $table->string('CategoryName');
+            $table->timestamps();
+        });
+
+        // Creating the Supplier table
+
+        Schema::create('suppliers', function (Blueprint $table) {
+            $table->id();
+            $table->string('SupplierName');
+            $table->string('ContactName')->nullable();
+            $table->string('ContactEmail')->nullable();
+            $table->string('Phone')->nullable();
+            $table->timestamps();
+        });
+
+        // Creating the products table
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('SupplierID')->nullable()->constrained('suppliers')->onDelete('set null');
+            $table->foreignId('CategoryID')->nullable()->constrained('categories')->onDelete('set null'); // Updated from ProductType to ProductCategory
+            $table->longText('ProductIMG')->nullable();
+
+            $table->longText('ProductName');
+            $table->text('Size')->nullable();
+            $table->longText('Description')->nullable();
+            $table->decimal('BuyPrice', 10, 2)->nullable();
+            $table->decimal('UnitPrice', 10, 2)->nullable();
+            $table->integer('UnitsInStock')->nullable();
+            $table->integer('UnitsOnOrder')->nullable();
+            $table->smallInteger('ReorderLevel')->nullable();
+            $table->boolean('Discontinued')->nullable();
             $table->timestamps();
         });
 
@@ -32,32 +62,12 @@ return new class extends Migration
             ['CategoryName' => 'Misc.']
         ]);
 
-        // Creating the products table
-        Schema::create('products', function (Blueprint $table) {
-            $Product_Types = array('T-Shirt', 'Youth Shirt',  'Long Sleeve', 'Button-up', 'Sunglasses', 'Hoodie', 'Sweater', 'Ash Tray', 'Misc.');
-            
-            $table->id('ID')->primary()->autoIncrement()->unique();
-            $table->foreignId('SupplierID')->nullable();
-            $table->foreignId('CategoryID')->nullable(); // Updated from ProductType to ProductCategory
-            $table->longText('ProductIMG')->nullable();
-
-            $table->longText('ProductName');
-            $table->text('Size')->nullable();
-            $table->longText('Description')->nullable();
-            $table->decimal('BuyPrice')->nullable();
-            $table->decimal('UnitPrice')->nullable();
-            $table->integer('UnitsInStock')->nullable();
-            $table->integer('UnitsOnOrder')->nullable();
-            $table->smallInteger('ReorderLevel')->nullable();
-            $table->boolean('Discontinued')->nullable();
-            $table->timestamps();
-        });
-
         // Inserting Default Product
         // This is just a sample of the product types that will be inserted into the database
         DB::table('products')->insert([
             [
                 'ProductName' => 'Sample Product',
+                'CategoryID' => 1, // Assuming this is the ID for 'T-Shirt'
                 'Size' => 'S',
                 'Description' => 'This is a sample product',
                 'UnitPrice' => 15,
@@ -96,7 +106,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $Product_Types = array('T-Shirt', 'Youth', 'Long Sleeve', 'Button-up', 'Sunglasses', 'Hoodie', 'Sweater', 'Ash Tray', 'Misc.');
 
-            $table->id('OrderID');
+            $table->id();
             $table->foreignId('ProductID');
             $table->decimal('UnitPrice');
             $table->integer('UnitsInStock');
@@ -113,9 +123,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
+
+        // Dropping the products, categories, and suppliers tables
+        Schema::dropIfExists('suppliers');
         Schema::dropIfExists('products');
         Schema::dropIfExists('categories');
-        // Schema::dropIfExists('orders');  
-
+        // Schema::dropIfExists('orders');
+        Schema::enableForeignKeyConstraints();
     }
 };

@@ -35,14 +35,14 @@
            <tbody>
                @foreach ($transactions as $transaction)
                    <tr>
-                       <td><a href="/sale_management/view_transaction/{{ $transaction->TransactionID }}"> {{ $transaction->TransactionID }} </a></td>
+                       <td><a href="/sale_management/view_transaction/{{ $transaction->id }}"> {{ $transaction->id }} </a></td>
                        <td>{{ $transaction->UserID }}</td>
                        <td>{{ $transaction->Quantity }}</td>
                        <td>${{ $transaction->TotalPrice }}</td>
                        <td>{{ $transaction->created_at }}</td>
                        @if(auth()->user() && auth()->user()->role === 'admin')
-                            <td><a href="/sale_management/update_transaction/{{ $transaction->TransactionID }}">Manage</a></td>
-                            <td><form action="/sale_management/delete_transaction/{{ $transaction->TransactionID }}" method="POST" style="display:inline;">
+                            <td><a href="/sale_management/update_transaction/{{ $transaction->id }}">Manage</a></td>
+                            <td><form action="/sale_management/delete_transaction/{{ $transaction->id }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button></td>

@@ -39,9 +39,11 @@
                 <thead>
                     <tr>
                         <th>Product ID</th>
+                        <th>Category</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Price</th>
+                        <th>Quantity</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -71,7 +73,7 @@
                     <tr>
                     @foreach ($Categories as $Category => $details)
                     <tr>
-                        <td><button data-id={{ $details->ID }}>{{ $details->CategoryName }}</button></td>
+                        <td><button data-id={{ $details->id }}>{{ $details->CategoryName }}</button></td>
                     </tr>
                     @endforeach
                 </tbody>

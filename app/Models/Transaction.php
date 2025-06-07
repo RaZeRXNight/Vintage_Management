@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     //
-    protected $primaryKey = 'TransactionID';
+    protected $primaryKey = 'id';
     public $incrementing = true;
     protected $keyType = 'int';
     protected $fillable = [

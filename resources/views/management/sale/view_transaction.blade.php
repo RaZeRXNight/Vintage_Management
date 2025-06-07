@@ -26,7 +26,7 @@ $total = null;
 
                     <div class='flex flex-col gap-3 border-b py-6 text-xs'>
                         <span id='receiptid'>Receipt Number:
-                            <?php echo $transaction->TransactionID; ?></span>
+                            <?php echo $transaction->id; ?></span>
                         <span id='UserID'>Cashier ID: <?php    echo Auth::id(); ?></span>
                         <span class="text-xs" id='UserName'>Cashier: <?php    echo Auth::user()->name; ?></span>
                         <span class="text-xs" id='date'> <?php echo $transaction->TransactionDate;  ?></span>
@@ -49,7 +49,7 @@ $total = null;
                                     <td>{{ $sale->TotalPrice }}</td>
                                     <td>
                                         <?php 
-                                            echo Product::where('ID', $sale->ProductID)
+                                            echo Product::where('id', $sale->ProductID)
                                             ->firstOrFail()->ProductName; 
                                         ?>
                                     </td>
@@ -85,7 +85,7 @@ $total = null;
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="py-2 px-4 border-b">{{ $transaction->TransactionID }}</td>
+                                <td class="py-2 px-4 border-b">{{ $transaction->id }}</td>
                                 <td class="py-2 px-4 border-b">{{ $transaction->UserID }}</td>
                                 <td class="py-2 px-4 border-b">{{ $transaction->Quantity }}</td>
                                 <td class="py-2 px-4 border-b">${{ $transaction->TotalPrice }}</td>
@@ -107,10 +107,10 @@ $total = null;
                         <tbody>
                             @foreach($Sales as $sale)
                                 <tr>
-                                    <td class="py-2 px-4 border-b">{{ $sale->SaleID }}</td>
-                                    <td class="py-2 px-4 border-b"><?php echo Product::where('ID', $sale->ProductID)->first()->ProductName; ?></td>
+                                    <td class="py-2 px-4 border-b">{{ $sale->id }}</td>
+                                    <td class="py-2 px-4 border-b"><?php echo Product::where('id', $sale->ProductID)->first()->ProductName; ?></td>
                                     <td class="py-2 px-4 border-b">{{$sale->Quantity}}</td>
-                                    <td class="py-2 px-4 border-b"><?php echo '$'.Product::where('ID', $sale->ProductID)->first()->UnitPrice; ?></td>
+                                    <td class="py-2 px-4 border-b"><?php echo '$'.Product::where('id', $sale->ProductID)->first()->UnitPrice; ?></td>
                                     <td class="py-2 px-4 border-b">${{ $sale->TotalPrice }}</td>
                                 </tr>
                             @endforeach

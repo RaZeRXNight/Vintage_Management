@@ -43,7 +43,13 @@ class SaleController extends Controller
         echo "<td>" . $cart['productPrice'] . "</td>";
         echo "<td>" . $cart['quantity'] . "</td>";
         echo "<td>" . $cart['total'] . "</td></tr>";
-      $Sale = Sale::insertGetId(array('UserID' => intval($userid), 'TransactionID' => $Transaction->TransactionID, 'ProductID' => $cart['id'], 'Quantity' => $cart['quantity'],'TotalPrice' => $cart['total']));
+      $Sale = Sale::insertGetId(array(
+        'UserID' => intval($userid), 
+        'TransactionID' => $Transaction->id, 
+        'ProductID' => $cart['id'], 
+        'Quantity' => $cart['quantity'],
+        'TotalPrice' => $cart['total']
+        ));
     }
     echo '</table>';
 
@@ -54,8 +60,8 @@ class SaleController extends Controller
     // This function will return the view for creating a new sale.
     // This function will handle the creation of a new sale.
     public function create_view_transaction_view(Transaction $transaction) {
-        $transaction = Transaction::find(id: $transaction->TransactionID);
-        $Sales = Sale::where('TransactionID',$transaction->TransactionID, null)->get();
+        $transaction = Transaction::find(id: $transaction->id);
+        $Sales = Sale::where('TransactionID',$transaction->id, null)->get();
         
         if (!$transaction) {
             return redirect('/sale_management')->with('error', 'Transaction not found');
@@ -64,7 +70,7 @@ class SaleController extends Controller
     }
 
     public function delete_sale(Sale $sale) {
-        $sale = Sale::find(id: $sale->SaleID);
+        $sale = Sale::find(id: $sale->id);
         if (!$sale) {
             return redirect('/sale_management')->with('error', 'Sale not found');
         }
@@ -80,7 +86,7 @@ class SaleController extends Controller
         if (!$transaction) {
             return redirect('/sale_management')->with('error', 'Transaction not found');
         };
-        $sales = Sale::where('TransactionID',$transaction->TransactionID)->get();
+        $sales = Sale::where('TransactionID',$transaction->id)->get();
 
         foreach($sales as $sale) {
             $sale->delete();
@@ -93,7 +99,7 @@ class SaleController extends Controller
     }
 
     public function create_update_sale_view(Sale $sale) {
-        $sale = Sale::find(id: $sale->ID);
+        $sale = Sale::find(id: $sale->id);
         if (!$sale) {
             return redirect('/sale_management')->with('error', 'Sale not found');
         }
@@ -112,7 +118,7 @@ class SaleController extends Controller
         ]);
 
         // Find the sale by ID
-        $saleID = Sale::find(id: $sale->ID);
+        $saleID = Sale::find(id: $sale->id);
         if (!$saleID) {
             return redirect('/sale_management')->with('error', 'Sale not found');
         }
@@ -120,6 +126,6 @@ class SaleController extends Controller
         // Update the sale
         // Save the sale to the database
         $sale->fill(attributes: $incomingfields)->save();
-        return redirect("/sale_management/view_sale/{$sale->ID}")->with('success', 'Sale updated successfully');
+        return redirect("/sale_management/view_sale/{$sale->id}")->with('success', 'Sale updated successfully');
     }
 }

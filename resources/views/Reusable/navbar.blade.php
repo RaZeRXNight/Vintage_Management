@@ -5,16 +5,17 @@
             <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
             <h2 class='flex items-center gap-5 mt-5 pb-2 space-x-3 rtl:space-x-reverse'>Welcome <?php echo Auth::user()->name; ?>!</h2>
 
-            <div class="flex flex-row items-center gap-5 mt-5 pb-2  sm:justify-end">
+            <div class="flex flex-row items-center gap-5 mt-5 pb-2 sm:justify-end">
 
                 <a href='/'>Dashboard</a>
-                <a href='/product_management'>Product Management</a>
+                
+                <a href='/product_management' id='product_management'>Product Management</a>
 
-                <a href='/user_management'>User Management</a>
+                <a href='/user_management' id='user_management'>User Management</a>
 
-                <a href='/sale_management'>Sale Management</a>
+                <a href='/sale_management' id='sale_management'>Sale Management</a>
 
-                <a href='/report_management'>Report Management</a>
+                <a href='/report_management' id='report_management'>Report Management</a>
 
                 <form action="/logout" method="POST"> @csrf <button>Log Out</button> </form>
                 

@@ -76,7 +76,7 @@
                                 id="CategoryID" name="CategoryID">
                                 <option value='0' disabled selected>Select A Category</option>
                                 @foreach($Categories as $category => $details)
-                                    <option value={{ $details->ID }}>{{ $details->CategoryName }}</option>
+                                    <option value={{ $details->id }}>{{ $details->CategoryName }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -89,6 +89,12 @@
                             <label for="UnitPrice">Product Selling Price:</label> <br />
                             <input class='border text-center rounded-2xl min-w-full' type="number" class="form-control"
                                 id="UnitPrice" name="UnitPrice" required step="0.01" min="0">
+                        </div>
+
+                        <div>
+                            <label for="BuyPrice">Product Buy Price:</label> <br />
+                            <input class='border text-center rounded-2xl min-w-full' type="number" class="form-control"
+                                id="BuyPrice" name="BuyPrice" required min="0">
                         </div>
 
                         <div>

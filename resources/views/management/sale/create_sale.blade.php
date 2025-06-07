@@ -40,7 +40,7 @@
                         <!-- Product rows will be populated here -->
                         <button data-id=0>All</button>
                         @foreach ($Categories as $Category => $details)
-                            <button data-id={{ $details->ID }}>{{ $details->CategoryName }}</button>
+                            <button data-id={{ $details->id }}>{{ $details->CategoryName }}</button>
                         @endforeach
                     </div>
                 </section>

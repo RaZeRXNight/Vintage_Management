@@ -12,7 +12,7 @@ class ProductController extends Controller
     // This controller handles the product management functionality
     // It includes methods for creating, viewing, updating, and deleting products
     public function create_view_product_view(Product $product) {
-        $product = Product::find(id: $product->ID);
+        $product = Product::find(id: $product->id);
         if (!$product) {
             return redirect('/product_management')->with('error', 'Product not found');
         }
@@ -21,7 +21,7 @@ class ProductController extends Controller
     }
 
     public function delete_product(Product $product) {
-        $product = Product::find(id: $product->ID);
+        $product = Product::find(id: $product->id);
         if (!$product) {
             return redirect('/product_management')->with('error', 'Product not found');
         }
@@ -33,7 +33,7 @@ class ProductController extends Controller
     }
 
     public function create_update_product_view(Product $product) {
-        $product = Product::find(id: $product->ID);
+        $product = Product::find(id: $product->id);
         if (!$product) {
             return redirect('/product_management')->with('error', 'Product not found');
         }
@@ -65,7 +65,7 @@ class ProductController extends Controller
             $incomingfields['ProductIMG'] = $imageUploadController->upload($request, 'uploads/product_images'); 
         } 
         // Find the product by ID
-        $productID = Product::find(id: $product->ID);
+        $productID = Product::find(id: $product->id);
         if (!$productID) {
             return redirect('/product_management')->with('error', 'Product not found');
         }
@@ -73,7 +73,7 @@ class ProductController extends Controller
         // Update the product
         // Save the product to the database
         $product->fill(attributes: $incomingfields)->save();
-        return redirect("/product_management/view_product/{$product->ID}")->with('success', 'Product updated successfully');
+        return redirect("/product_management/view_product/{$product->id}")->with('success', 'Product updated successfully');
     }
 
     // Create Product View
@@ -88,8 +88,8 @@ class ProductController extends Controller
         'Amount' => ['nullable'],
         'ProductIMG' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         'SupplierID' => ['min:0', 'max:1000'],
-        'ProductName' => ['required', 'min:0', 'max:50'], 
         'CategoryID' => ['min:0', 'max:1000'],
+        'ProductName' => ['required', 'min:0', 'max:50'], 
         'Size' => ['required'],
         'Description' => ['nullable', 'min:0', 'max:50'],
         'UnitPrice' => ['required', 'min:0', 'max:1000'],
@@ -118,15 +118,12 @@ class ProductController extends Controller
             $product['Size'] = $Size;
             
             $product = Product::create($product);
-            return redirect("/product_management/");
         }
-        
+        return redirect("/product_management/");
     } else {
         $product = Product::create($incomingfields);
-        return redirect("/product_management/view_product/{$product->ID}");
+        return redirect("/product_management/view_product/{$product->id}");
     }
-    
-    
     }
 
     

@@ -25,10 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get Text Content from Text Field.
         search = this.value;
 
+        console.log(category + search + ' Added to Search.');
+
         // Send Request.
         UpdateProductList(category, search);
 
-        console.log(search + ' Added to Search.');
+        
 
     })
 
@@ -38,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const categoryName = this.textContent.trim();
             category = this.dataset.id;
 
-            
             console.log(categoryName + ' ID ' + category + ' Category Selected');
 
             // Input into Function to Update Product List
@@ -90,13 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const row = document.createElement('tr');
 
                 // Add Table Details
-                row.innerHTML = `<td>${item.ID}</td>
-                    <td><a href="/product_management/view_product/${item.ID}">${item.ProductName}</a></td>
+                row.innerHTML = `<td>${item.id}</td>
+                    <td>${item.CategoryID}</td>
+                    <td><a href="/product_management/view_product/${item.id}">${item.ProductName}</a></td>
                     <td>${item.Description}</td>
                     <td>$${item.UnitPrice}</td>
                     <td>${item.UnitsInStock}</td>
-                    <td><a href="/product_management/update_product/${item.ID}" class="btn btn-warning">Edit</a></td>
-                    <td><form action="/product_management/delete_product/${item.ID}" method="POST">
+                    <td><a href="/product_management/update_product/${item.id}" class="btn btn-warning">Edit</a></td>
+                    <td><form action="/product_management/delete_product/${item.id}" method="POST">
                             <input type="hidden" name="_token" value="${csrfToken}">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -118,13 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.className = 'product-card';
                 card.dataset.name = item.ProductName;
                 card.dataset.size = item.Size;
-                card.dataset.id = item.ID;
+                card.dataset.id = item.id;
                 card.dataset.price = item.UnitPrice;
                 card.dataset.quantity = item.UnitsInStock;
             
                 card.innerHTML = `
                 <button class="add-to-cart">
-                    <img class="rounded-t-2xl max-h-30" id="product-img-${item.ID}"
+                    <img class="rounded-t-2xl max-h-30" id="product-img-${item.id}"
                         src='/storage/${item.ProductIMG}' alt='Product Image' />
                 </button>
 
