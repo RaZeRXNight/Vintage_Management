@@ -27,7 +27,7 @@
                             @foreach($transactions as $transaction)
                                 @if($transaction->created_at->format('W') == now()->format('W') and $transaction->created_at->format('Y') == now()->format('Y'))
                                 <tr>
-                                    <td>{{$transaction->TransactionID}}</td>
+                                    <td><a href="/sale_management/view_transaction/{{ $transaction->id }}">{{$transaction->id}}</a></td>
                                     <td>{{$transaction->Quantity}}</td>
                                     <td>{{$transaction->TotalPrice}}</td>
                                     <td>{{$transaction->PaymentMethod}}</td>

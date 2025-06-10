@@ -1,15 +1,19 @@
+import { renderPaginationControls } from './pagination.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const product =  document.getElementById('product-items') || document.getElementById('cart-product-items');
+    // Initialize product management functionality here
+    const product_management = document.getElementById('product-management');
+
+    const product = document.getElementById('product-items') || 
+    document.getElementById('cart-product-items');
     const categories = document.getElementById('Category-items');
     const current_category = document.getElementById('Current_Filter');
-    
 
     if (!product || !categories) {
         return;
     };
 
-    const productsperpage = 20;
+    const productsperpage = 10;
     const productsperrow = 5;
     let page = 1;
     let category = 0;
@@ -21,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     UpdateProductList(category);
 
     // Gets Search Result and Sends an Update Product List Request.
-    document.getElementById('Search').addEventListener('keyup', function(event) {
+    let searchbar = product_management ? product_management : null;
+    searchbar.querySelector('#Search').addEventListener('keyup', function(event) {
         // Get Text Content from Text Field.
         search = this.value;
 
@@ -29,9 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Send Request.
         UpdateProductList(category, search);
-
-        
-
     })
 
     // Finds Each Button within the Categories Options Div and Attaches an Event.
@@ -152,39 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });   
 
-        renderPaginationControls(totalPages, page, categoryID, Search);
+        let pagination_target = product_management ? product_management : document;
+
+        renderPaginationControls(pagination_target, totalPages, page, categoryID, Search, UpdateProductList);
 
         return true;
     }
-
-    function renderPaginationControls(totalPages, page, categoryID, Search) {
-        let paginationContainer = document.getElementById('pagination-controls');
-        paginationContainer.innerHTML = '';
-
-        if (totalPages <= 1) return;
-
-        const prevBtn = document.createElement('button');
-        prevBtn.textContent = 'Prev';
-        prevBtn.disabled = page === 1;
-        prevBtn.onclick = () => UpdateProductList(categoryID, Search, page - 1);
-        paginationContainer.appendChild(prevBtn);
-
-        // Page numbers
-        for (let i = 1; i <= totalPages; i++) {
-            const pageBtn = document.createElement('button');
-            pageBtn.textContent = i;
-            if (i === page) pageBtn.disabled = true;
-            pageBtn.onclick = () => UpdateProductList(categoryID, Search, i);
-            paginationContainer.appendChild(pageBtn);
-        }
-
-        // Next button
-        const nextBtn = document.createElement('button');
-        nextBtn.textContent = 'Next';
-        nextBtn.disabled = page === totalPages;
-        nextBtn.onclick = () => UpdateProductList(categoryID, Search, page + 1);
-        paginationContainer.appendChild(nextBtn);
-
-    }
 });
-

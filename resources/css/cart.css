@@ -1,0 +1,20 @@
+.cart {
+    @apply container flex flex-col gap-5 min-w-max items-center rounded-l-2xl  shadow-2xl p-10;
+    
+}
+.cart-header {
+    @apply border
+    bg-white rounded-2xl p-2;
+}
+.product-card {
+    @apply flex flex-col justify-end p-1
+    min-h-fit max-w-50 min-w-fit
+    ;
+}
+    .product-card img {
+        @apply hover:size-full;
+    }
+    
+.cart-footer {
+    @apply flex flex-col gap-2 border self-center text-center min-w-9/10 min-h-20 max-w-9/10 p-5 pb-10 rounded-2xl shadow-2xl outline-1 backdrop-blur-2xl;
+}

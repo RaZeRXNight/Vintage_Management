@@ -18,8 +18,8 @@
     </section>
 
    <div class="container mx-auto">
-       <h1 class="text-2xl font-bold mb-4">Transactions Management</h1>
        <table class="list-table">
+        <h1 class="text-2xl font-bold mb-4">Transactions Management</h1>
            <thead>
                <tr>
                    <th>Transaction ID</th>
@@ -52,6 +52,7 @@
                @endforeach
            </tbody>
        </table>
+
    </div>
     </main>
     @else

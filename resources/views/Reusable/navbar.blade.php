@@ -8,14 +8,33 @@
             <div class="flex flex-row items-center gap-5 mt-5 pb-2 sm:justify-end">
 
                 <a href='/'>Dashboard</a>
-                
-                <a href='/product_management' id='product_management'>Product Management</a>
 
-                <a href='/user_management' id='user_management'>User Management</a>
+                <div class="dropdown group">
+                    <a href='/product_management' id='product_management'>Product Management</a>
 
-                <a href='/sale_management' id='sale_management'>Sale Management</a>
+                    <div class="dropdown-content">
+                        <a href="/product_management/create_product">Create Product</a>
+                        <a href="/product_management/category/create_category">Create Category</a>
+                        <a href="/product_management/supplier/create_supplier">Create Supplier</a>
+                        <a href="/product_management/order/create_order">Create Order</a>
+                    </div>
+                </div>
 
-                <a href='/report_management' id='report_management'>Report Management</a>
+                <div class="dropdown group">
+                    <a href='/user_management' id='user_management'>User Management</a>
+                </div>
+
+                <div class="dropdown group">
+                    <a href='/sale_management' id='sale_management'>Sale Management</a>
+
+                    <div class="dropdown-content">
+                        <a href="/sale_management/create_sale">Create Sale</a>
+                    </div>
+                </div>
+
+                <div class="dropdown group">
+                    <a href='/report_management' id='report_management'>Report Management</a>
+                </div>
 
                 <form action="/logout" method="POST"> @csrf <button>Log Out</button> </form>
                 

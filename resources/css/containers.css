@@ -1,0 +1,12 @@
+/* Rounded containers */
+.rounded-side-container {
+    @apply container border rounded-4xl p-5 bg-white border-gray-200 max-w-1/6 min-w-fit;
+}
+
+.rounded-main-container {
+    @apply container border rounded-4xl p-5 bg-white border-gray-200 max-w-3/6 min-w-fit;
+}
+
+.container-border-full {
+    @apply container border rounded-4xl p-5 bg-white border-gray-200 max-w-full min-w-fit;
+}

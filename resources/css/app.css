@@ -1,5 +1,10 @@
 
 @import "tailwindcss";
+@import './form.css';
+@import './cart.css';
+@import './dropdown.css';
+@import './table.css';
+@import './containers.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -59,80 +64,6 @@ main {
         
     }
 
-/* Rounded containers */
-.rounded-side-container {
-    @apply container border rounded-4xl p-5 bg-white border-gray-200 max-w-1/6 min-w-fit;
-}
-
-.rounded-main-container {
-    @apply container border rounded-4xl p-5 bg-white border-gray-200 max-w-4/6 min-w-fit;
-}
-
-
-.list-table {
-    @apply border-2 rounded-2xl max-w-20 min-w-full bg-white border-gray-200;
-    @apply shadow-lg shadow-neutral-600 m-1;
-}
-
-    .list-table thead tr th {
-        @apply py-2 px-4 border-b;
-        @apply text-center text-lg font-semibold;
-    }
-
-    .list-table tbody tr {
-        @apply bg-blend-darken;
-        @apply hover:bg-gradient-to-t hover:bg-amber-100 hover:to-50%;
-    }
-
-        .list-table tbody tr td {
-            @apply py-2 px-4 border-b text-center;
-            @apply text-sm;
-        }
-
-.cart {
-    @apply container flex flex-col gap-5 min-w-max items-center rounded-l-2xl  shadow-2xl p-10;
-    
-}
-.cart-header {
-    @apply border
-    bg-white rounded-2xl p-2;
-}
-.product-card {
-    @apply flex flex-col justify-end p-1
-    min-h-fit max-w-50 min-w-fit
-    ;
-}
-    .product-card img {
-        @apply hover:size-full;
-    }
-.cart-footer {
-    @apply flex flex-col gap-2 border self-center text-center min-w-9/10 min-h-20 max-w-9/10 p-5 pb-10 rounded-2xl shadow-2xl outline-1 backdrop-blur-2xl;
-}
-
 .pagination-controls {
     @apply flex flex-row max-w-fit justify-self-center
-}
-
-/* Forms */
-.form-content {
-    @apply max-w-7/10 self-center;
-}
-
-.form-group { 
-    @apply flex flex-col max-w-7/10 border-b-2 p-2;
-}
-
-.form-section {
-    @apply flex flex-col p-2 pb-4 gap-2 justify-around text-center ;
-}
-
-.bi-column-section {
-    @apply flex flex-row justify-around min-w-full 
-    gap-10 p-5
-    self-center 
-    border-b-1 border-dashed;
-}
-
-.form-group-row {
-    @apply flex flex-row justify-around text-center;
 }

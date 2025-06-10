@@ -5,9 +5,14 @@
     <body>
     @auth
     @include('reusable.navbar')
+    <main>
+        
+    </main>
     
     @else 
-    @include('reusable.login')
+    <main>
+        @include('reusable.login')
+    </main>
     @endauth
     
     </body>

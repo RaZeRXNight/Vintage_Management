@@ -9,12 +9,40 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Sale;
 
+// ------------------------------------------------------
+// Home Route
 Route::get('/', function () { return view('home'); });
 
 // ------------------------------------------------------
+// View All Categories
+Route::get('/product_management/category/create_category', [ProductController::class, 'create_category_view']);
+Route::post('/product_management/category/create_category', [ProductController::class, 'create_category']);
+Route::get('/product_management/category/view_category/{category}', [ProductController::class, 'create_view_category_view']);
+Route::get('/product_management/category/update_category/{category}', [ProductController::class, 'create_update_category_view']);
+Route::put('/product_management/category/update_category/{category}', [ProductController::class, 'update_category']);
+Route::delete('/product_management/category/delete_category/{category}', [ProductController::class, 'delete_category']);
+
+// ------------------------------------------------------
+// View All Suppliers
+Route::get('/product_management/supplier/create_supplier', [ProductController::class, 'create_supplier_view']);
+Route::post('/product_management/supplier/create_supplier', [ProductController::class, 'create_supplier']);
+Route::get('/product_management/supplier/view_supplier/{supplier}', [ProductController::class, 'create_view_supplier_view']);
+Route::get('/product_management/supplier/update_supplier/{supplier}', [ProductController::class, 'create_update_supplier_view']);
+Route::put('/product_management/supplier/update_supplier/{supplier}', [ProductController::class, 'update_supplier']);
+Route::delete('/product_management/supplier/delete_supplier/{supplier}', [ProductController::class, 'delete_supplier']);
+
+// ------------------------------------------------------
+// View All Orders
+Route::get('/product_management/order/create_order', [ProductController::class, 'create_order_view']);
+Route::post('/product_management/order/create_order', [ProductController::class, 'create_order']);
+Route::get('/product_management/order/view_order/{order}', [ProductController::class, 'create_view_order_view']);
+Route::get('/product_management/order/update_order/{order}', [ProductController::class, 'create_update_order_view']);
+Route::put('/product_management/order/update_order/{order}', [ProductController::class, 'update_order']);
+Route::delete('/product_management/order/delete_order/{order}', [ProductController::class, 'delete_order']);
+// ------------------------------------------------------
 // Product Management Routes
 // View All Products
-Route::get('/product_management', function () { $products = Product::all(); return view('management/product/product_management', ['products' => $products]); });
+Route::get('/product_management',  [ProductController::class, 'create_product_management_view']);
 // Create Product
 Route::get('/product_management/create_product', [ProductController::class, 'create_product_view']);
 Route::post('/product_management/create_product', [ProductController::class, 'create_product']);

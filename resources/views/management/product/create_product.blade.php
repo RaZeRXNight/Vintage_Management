@@ -5,6 +5,8 @@
 @php
     use App\Models\categorie;
     $Categories = categorie::all();
+    use App\Models\supplier;
+    $Suppliers = supplier::all();
     $Sizes = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', '4X'];
 @endphp
 
@@ -66,8 +68,17 @@
 
                         <div>
                             <label for="SupplierID">Supplier ID:</label> <br />
-                            <input class='text-center border rounded-2xl' type="number" class="form-control" id="SupplierID"
-                                name="SupplierID">
+                            <select class='border text-center rounded-2xl min-w-full' type="number" class="form-control"
+                                id="SupplierID" name="SupplierID">
+                                @if($Suppliers->isEmpty())
+                                    <option value='0'>No Suppliers Available</option>
+                                @else
+                                    <option value='0' disabled selected>Select A Supplier</option>
+                                    @foreach($Suppliers as $supplier => $details)
+                                        <option value={{ $details->id }}>{{ $details->SupplierName . ' ' . $details->ContactName }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
                         </div>
 
                         <div>

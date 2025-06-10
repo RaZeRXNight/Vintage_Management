@@ -14,13 +14,13 @@
                 <!-- Add your product view content here -->
                 <div class="product-details">
                     <img src='{{ asset('storage/'. $product->ProductIMG) }}' alt='Product Image' />
-                    <h2>Product ID: {{ $product->ID }}</h2>
+                    <h2>Product ID: {{ $product->id }}</h2>
                     <p><strong>Name:</strong> {{ $product->ProductName }}</p>
                     <p><strong>Description:</strong> {{ $product->Description }}</p>
                     <p><strong>Price:</strong> {{ $product->UnitPrice }}</p>
                 </div>
-                <a href="/product_management/update_product/{{ $product->ID }}" class="btn btn-warning">Edit Product</a>
-                <form action="/product_management/delete_product/{{ $product->ID }}" method="POST" style="display:inline;">
+                <a href="/product_management/update_product/{{ $product->id }}" class="btn btn-warning">Edit Product</a>
+                <form action="/product_management/delete_product/{{ $product->id }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete Product</button>

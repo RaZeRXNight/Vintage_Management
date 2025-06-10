@@ -1,0 +1,35 @@
+/* Forms */
+.form-content {
+    @apply max-w-7/10 self-center;
+}
+
+.form-group { 
+    @apply flex flex-col max-w-7/10 border-b-2 p-2;
+}
+
+.form-section {
+    @apply flex flex-col p-2 pb-4 gap-2 justify-around text-center ;
+}
+
+.bi-column-section {
+    @apply flex flex-row justify-around min-w-full 
+    gap-10 p-5
+    self-center 
+    border-b-1 border-dashed;
+}
+
+form input {
+    @apply border text-center rounded-2xl min-w-full;
+}
+
+form textarea {
+    @apply border text-center rounded-2xl min-w-full;
+}
+
+.form-group-row {
+    @apply flex flex-row justify-around text-center;
+}
+
+.form-control {
+    @apply border text-center rounded-2xl min-w-full;
+}

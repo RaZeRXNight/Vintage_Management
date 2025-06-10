@@ -1,0 +1,19 @@
+.list-table {
+    @apply border-2 max-w-20 min-w-full bg-white border-gray-200;
+    @apply shadow-lg shadow-neutral-600 m-1;
+}
+
+    .list-table thead tr th {
+        @apply py-2 px-4 border-b;
+        @apply text-center text-lg font-semibold;
+    }
+
+    .list-table tbody tr {
+        @apply bg-blend-darken;
+        @apply hover:bg-gradient-to-t hover:bg-amber-100 hover:to-50%;
+    }
+
+        .list-table tbody tr td {
+            @apply py-2 px-4 border-b text-center;
+            @apply text-sm;
+        }
