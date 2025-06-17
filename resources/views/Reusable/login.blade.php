@@ -1,9 +1,9 @@
 <section class="flex flex-col items-center p-7 
 border rounded-2xl shadow-xl 
-size-2/6
+size-3/6
 justify-self-center">
     <h2>Login</h2>
-    <form action="/login" method="POST">
+    <form class='min-w-4/6' action="/login" method="POST">
         @csrf
         <input name="email" type="email" placeholder="E-mail" /> <br />
         <input name="password" type="password" placeholder="Password" /> <br />

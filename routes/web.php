@@ -78,17 +78,23 @@ Route::get('/report_management', function () { $products = Product::all(); $sale
 // ------------------------------------------------------
 // User Management Routes
 // View Changes
-Route::get('/user_management', function () { $users = User::all(); return view('management/user/user_management', ['users' => $users]); });
+Route::get('/user_management', [UserController::class, 'create_user_management_view']);
 // View User
 Route::get('/user_management/view_user/{user}' , [UserController::class, 'view_user']);
+// Create User
+Route::get('/user_management/create_user' , [UserController::class, 'create_user']);
+Route::post('/user_management/create_user' , [UserController::class, 'store_user']);
 // Update User
 Route::get('/user_management/update_user/{user}' , [UserController::class, 'update_user']);
-
-// POST Routes
+Route::put('/user_management/update_user/{user}' , [UserController::class, 'update_user_post']);
+// Delete User
+Route::delete('/user_management/delete_user/{user}', function (User $user) { $user->delete(); return redirect('/user_management'); });
+// ------------------------------------------------------
+// Authentication Routes
+// Log in, Register and Logout
 Route::post('/login', [UserController::class, 'login']);
-
 Route::post('/register', [UserController::class, 'register']);
-
 Route::post('/logout', [UserController::class, 'logout']);
+// ------------------------------------------------------
 
 

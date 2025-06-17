@@ -9,8 +9,6 @@
         <main class='container min-w-9/10 self-center'>
             <section class='self-center text-center'>
                 <h1>Report Management</h1>
-
-
             </section>
 
             <section class='flex flex-col text-center'>
@@ -48,7 +46,6 @@
                                 <th>TransactionID</th> <th>Quantity</th> <th>Total Price</th> <th>Payment Method</th> <th>Transaction Date</th>
                             </thead>    
                             <tbody>
-                            
                             @foreach($transactions as $transaction)
                                 @if($transaction->created_at->format('M') == now()->format('M') and $transaction->created_at->format('Y') == now()->format('Y'))
                                 <tr>

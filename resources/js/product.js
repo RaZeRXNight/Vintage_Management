@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     UpdateProductList(category);
 
     // Gets Search Result and Sends an Update Product List Request.
-    let searchbar = product_management ? product_management : null;
+    let searchbar = product_management ? product_management : Transaction;
     searchbar.querySelector('#Search').addEventListener('keyup', function(event) {
         // Get Text Content from Text Field.
         search = this.value;

@@ -1,5 +1,4 @@
 <header class="flex border-b-2 flex-wrap sm:justify-start sm:flex-nowrap w-full pb-3 bg-gray-200">
-
     @auth
     <nav class='max-w-[100rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between'>
             <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
@@ -32,9 +31,10 @@
                     </div>
                 </div>
 
-                <div class="dropdown group">
+
+                {{-- <div class="dropdown group">
                     <a href='/report_management' id='report_management'>Report Management</a>
-                </div>
+                </div> --}}
 
                 <form action="/logout" method="POST"> @csrf <button>Log Out</button> </form>
                 
@@ -43,6 +43,5 @@
     </nav>
     @else
     <h2>Welcome Guest!</h2>
-        
     @endauth
 </header>

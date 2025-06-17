@@ -47,13 +47,51 @@ class UserController extends Controller
         auth()->logout();
         return redirect('/');
     }
-    
+
+    // -----------------------------------------------
     // Laravel Automatically matches up the name of Controller, Model and Database to conduct its search.
-    public function updateuser(User $user) {
+    // User Management Routes
+    // View All Users
+    public function create_user_management_view() {
+        $users = User::all();
+        return view('management.user.user_management', ['users' => $users]);
+    }
+
+    public function update_user(User $user) {
         return view('management.user.update_user', ['user' => $user]);
     }
 
-    public function viewuser(User $user) {
+    public function view_user(User $user) {
         return view('management.user.view_user', ['user' => $user]);
+    }
+
+    public function update_user_post(Request $request, User $user) {
+        $incomingfields = $request->validate([
+            'name' => ['required', 'min:3', 'max:50'],
+            'email' => ['required', 'min:3', 'max:30'],
+            'password' => ['required', 'max: 20']
+        ]);
+        
+        $incomingfields['password'] = bcrypt($incomingfields['password']);
+        $user->update($incomingfields);
+        
+        return redirect('/management/user/view_user/' . $user->id);
+    }
+
+    public function create_user() {
+        return view('management.user.create_user');
+    }
+
+    public function store_user(Request $request) {
+        $incomingfields = $request->validate([
+            'name' => ['required', 'min:3', 'max:50'],
+            'email' => ['required', 'min:3', 'max:30'],
+            'password' => ['required', 'max: 20']
+        ]);
+        
+        $incomingfields['password'] = bcrypt($incomingfields['password']);
+        $user = User::create($incomingfields);
+        
+        return redirect('/management/user/view_user/' . $user->id);
     }
 }
