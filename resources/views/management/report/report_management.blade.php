@@ -5,13 +5,64 @@
 <body class='flex flex-col min-h-screen'>
     @auth
         @include('reusable.navbar')
+        <form id='Hidden-Stash' hidden>
+            <input type='hidden' id='products-data' value='@json($Product)'>
+            <input type='hidden' id='transactions-data' value='@json($Transaction)'>
+            <input type='hidden' id='sales-data' value='@json($Sale)'>
+        </form>
 
         <main class='container min-w-9/10 self-center'>
             <section class='self-center text-center'>
                 <h1>Report Management</h1>
             </section>
 
-            <section class='flex flex-col text-center'>
+            <section class='flex flex-row justify-start gap-10 p-10 border-2 border-gray-300 rounded-lg bg-white shadow-md'>
+                <div id='Report_Buttons' class='flex flex-col gap-5 border-r-2 pr-10 min-h-9/10 min-w-fit'>
+                    <div id='Sales_Reports'  class='flex flex-col gap-3 text-center border border-gray-300 rounded-lg bg-white shadow-md p-2'>
+                        <h2 class='border-b-2'>Sales Reports</h2>
+                        <button id='Today_Sales'>Today's Sales Report</button>
+                        <button id='Weekly_Sales'>Weekly Sales Report</button>
+                        <button id='Monthly_Sales'>Monthly Sales Report</button>
+                        <button id='Annual_Sales'>Annual Sales Report</button>
+                    </div>
+
+                    <div id='Product_Reports' class='flex flex-col gap-3 text-center border border-gray-300 rounded-lg bg-white shadow-md p-2'>
+                        <h2 class='border-b-2'>Product Reports</h2>
+                        <button id='Most_Sold_Products' data-type='Products' data-start-date='' data-end-date=''>Most Sold Products</button>
+                        <button id='Least_Sold_Products' data-type='Products' data-start-date='' data-end-date=''>Least Sold Products</button>
+                        <button id='Top_Products' data-type='Products' data-start-date='' data-end-date=''>Top Products</button>
+                        <button id='Low_Stock_Products' data-type='Products' data-start-date='' data-end-date=''>Low Stock Products</button>
+                    </div>
+                </div>
+
+                <div id='Report_Container' class='flex flex-col gap-5 w-full'>
+                    <div id='Report_Content' class='flex flex-col gap-5'>
+                        <p class='text-center'>Select a report from the left sidebar to view details.</p>
+                    </div>
+
+                    <div id='Report_Filters' class='flex flex-row justify-between'>
+                        <div class='flex flex-col'>
+                            <label for='Start_Date'>Start Date:</label>
+                            <input type='date' id='Start_Date' name='Start_Date'>
+                        </div>
+                        <div class='flex flex-col justify-items-center'>
+                            <label class='text-center' for='Search'>Search</label>
+                            <input class='text-center' type='text' id='Search' name='Search' placeholder='Search by Item Name or ID'>
+                        </div>
+
+                        <div class='flex flex-col'>
+                            <label for='End_Date'>End Date:</label>
+                            <input id='End_Date' type='date'  name='End_Date'>
+                        </div>
+                    </div>
+
+                    <table id='Report_Table' class='list-table'>
+                        <!-- Dynamic content will be inserted here -->
+                    </table>
+                </div>
+            </section>
+
+            {{-- <section class='flex flex-col text-center'>
                 <!-- Row 1: Product Sales -->
                 <h2>Sales Reports</h2>
                 <div class='flex flex-row justify-around border'>
@@ -73,7 +124,7 @@
                         <h3>Least Sold Products</h3>
                     </div>
                 </div>
-            </section>
+            </section> --}}
         </main>
 
         @include('reusable.footer')

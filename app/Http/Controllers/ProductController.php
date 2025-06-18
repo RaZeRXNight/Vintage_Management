@@ -144,8 +144,6 @@ class ProductController extends Controller
     }
     }
 
-
-
     // -----------------------------------------------
     // This function will return the view for creating a new category.
     public function create_category_view() {

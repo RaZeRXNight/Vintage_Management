@@ -5,3 +5,4 @@ import './header';
 import './Suppliers';
 import './Order';
 import './table';
+import './report';

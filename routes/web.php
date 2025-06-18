@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\UserController;
 use App\Http\controllers\ProductController;
@@ -73,7 +74,7 @@ Route::delete('/sale_management/delete_transaction/{transaction}', [SaleControll
 
 // Report Management Routes
 // View All Reports
-Route::get('/report_management', function () { $products = Product::all(); $sales = Sale::all(); $transactions = Transaction::all(); return view('management/report/report_management', ['products' => $products, 'sales' => $sales, 'transactions' => $transactions]); });
+Route::get('/report_management', [ReportController::class, 'create_report_management_view']);
 
 // ------------------------------------------------------
 // User Management Routes
