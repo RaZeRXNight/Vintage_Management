@@ -9,11 +9,11 @@
 
     <section class='flex flex-row min-w-full justify-center'>
         <div class="content">
-        <h1>Sale Management</h1>
-        <p>Welcome to the Sale Management page!</p>
-        <p>Here you can manage your sales effectively.</p>
-        
-        <a href='/sale_management/create_sale' class="btn btn-primary mb-4"><h1>Create Sale</h1></a>
+            <h1>Sale Management</h1>
+            <p>Welcome to the Sale Management page!</p>
+            <p>Here you can manage your sales effectively.</p>
+            
+            <a href='/sale_management/create_sale' class="btn btn-primary mb-4"><h1>Create Sale</h1></a>
         </div>
     </section>
 

@@ -14,6 +14,8 @@ class Sale extends Model
         'ProductID',
         'Quantity',
         'TotalPrice',
+        'created_at',
+        'updated_at'
     ];
     public $timestamps = true;
     protected $casts = [

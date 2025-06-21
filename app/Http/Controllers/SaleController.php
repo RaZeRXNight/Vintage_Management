@@ -25,9 +25,11 @@ class SaleController extends Controller
     // This function will handle the creation of a new Sale.
     public function create_sale(Request $request) {
     // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
+    $current_date = date('Y-m-d H:i:s');
     $cart = $request->input('cart');
     $cartItems = array_map(fn($item) => json_decode($item, true), $cart);
     $userid = Auth::id();
+    
     // Getting Total Quantity and Price for Transaction
     $T_Quantity = null; $T_Price = null;
     foreach($cartItems as $cart) {$T_Quantity+=$cart['quantity']; $T_Price+=$cart['total'];}
@@ -48,7 +50,9 @@ class SaleController extends Controller
         'TransactionID' => $Transaction->id, 
         'ProductID' => $cart['id'], 
         'Quantity' => $cart['quantity'],
-        'TotalPrice' => $cart['total']
+        'TotalPrice' => $cart['total'],
+        'created_at' => $Transaction->created_at,
+        'updated_at' => $Transaction->updated_at
         ));
     }
     echo '</table>';

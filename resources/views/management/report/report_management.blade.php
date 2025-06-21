@@ -18,20 +18,24 @@
 
             <section class='flex flex-row justify-start gap-10 p-10 border-2 border-gray-300 rounded-lg bg-white shadow-md'>
                 <div id='Report_Buttons' class='flex flex-col gap-5 border-r-2 pr-10 min-h-9/10 min-w-fit'>
+                    <div class='flex flex-col gap-3 text-center border border-gray-300 rounded-lg bg-white shadow-md p-2'>
+                        <h2 class='border-b-2'>Time</h2>
+                        <button id='Today'>This Day's Report</button>
+                        <button id='Week'>This Week's Report</button>
+                        <button id='Month'>This Month's Report</button>
+                        <button id='Year'>This Year's Report</button>
+                    </div>
+
                     <div id='Sales_Reports'  class='flex flex-col gap-3 text-center border border-gray-300 rounded-lg bg-white shadow-md p-2'>
                         <h2 class='border-b-2'>Sales Reports</h2>
-                        <button id='Today_Sales'>Today's Sales Report</button>
-                        <button id='Weekly_Sales'>Weekly Sales Report</button>
-                        <button id='Monthly_Sales'>Monthly Sales Report</button>
-                        <button id='Annual_Sales'>Annual Sales Report</button>
+                        <button data-type='Sales'>Highest Sales Report</button>
+                        <button data-type='Sales'>Lowest Sales Report</button>
                     </div>
 
                     <div id='Product_Reports' class='flex flex-col gap-3 text-center border border-gray-300 rounded-lg bg-white shadow-md p-2'>
                         <h2 class='border-b-2'>Product Reports</h2>
                         <button id='Most_Sold_Products' data-type='Products' data-start-date='' data-end-date=''>Most Sold Products</button>
                         <button id='Least_Sold_Products' data-type='Products' data-start-date='' data-end-date=''>Least Sold Products</button>
-                        <button id='Top_Products' data-type='Products' data-start-date='' data-end-date=''>Top Products</button>
-                        <button id='Low_Stock_Products' data-type='Products' data-start-date='' data-end-date=''>Low Stock Products</button>
                     </div>
                 </div>
 
@@ -43,7 +47,7 @@
                     <div id='Report_Filters' class='flex flex-row justify-between'>
                         <div class='flex flex-col'>
                             <label for='Start_Date'>Start Date:</label>
-                            <input type='date' id='Start_Date' name='Start_Date'>
+                            <input id='Start_Date' type="datetime-local" name='Start_Date'>
                         </div>
                         <div class='flex flex-col justify-items-center'>
                             <label class='text-center' for='Search'>Search</label>
@@ -52,7 +56,7 @@
 
                         <div class='flex flex-col'>
                             <label for='End_Date'>End Date:</label>
-                            <input id='End_Date' type='date'  name='End_Date'>
+                            <input id='End_Date' type="datetime-local"  name='End_Date'>
                         </div>
                     </div>
 

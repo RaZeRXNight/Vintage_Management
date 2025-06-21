@@ -15,7 +15,9 @@ function renderPaginationControls(target, totalPages, page, categoryID, Search, 
     const prevBtn = document.createElement('button');
     prevBtn.textContent = 'Prev';
     prevBtn.disabled = page === 1;
-    prevBtn.onclick = () => UpdateList(categoryID, Search, page - 1);
+    if (categoryID !== null) { prevBtn.onclick = () => UpdateList(categoryID, Search, page - 1); }
+    else if (categoryID === null) { prevBtn.onclick = () => UpdateList(); }
+    
     paginationContainer.appendChild(prevBtn);
 
     // Page numbers

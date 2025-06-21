@@ -20,9 +20,13 @@ class ReportController extends Controller
         $Transaction = Transaction::all();
         
         // Checking if User is Authenticated as Admin.
-        if (auth()->user()->role !== 'admin') {
+        if (auth()->user() == null) {
             return redirect('/')->with('error', 'You do not have permission to access this page.');
-        }
+            
+            if (auth()->user()->role !== 'admin') {
+                return redirect('/')->with('error', 'You do not have permission to access this page.');
+            };
+        };
 
         // Returning View with Data
         return view('management.report.report_management', [
