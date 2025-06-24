@@ -48,16 +48,61 @@ class UserController extends Controller
         return redirect('/');
     }
 
+    //-----------------------------------------------
+    // User Verification
+    // Verifies The User and Checks if they're an Administrator // 
+    public static function VerifyUser_Admin() {
+        if (auth()->user() == null) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
+            
+            if (auth()->user()->role !== 'admin') {
+                return redirect('/')->with('error', 'You do not have permission to access this page.');
+            };
+        };
+    }
+
+    // Verifies The User and their Product Role and Checks if they're an Administrator // 
+    public static function VerifyUser_Inventory() {
+        if (auth()->user() == null) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
+            
+            if (auth()->user()->role !== 'admin' || auth()->user()->role !== 'inventory') {
+                return redirect('/')->with('error', 'You do not have permission to access this page.');
+            };
+        };
+    }
+
+    // Verifies The User and their Sales Role and Checks if they're an Administrator // 
+    public static function VerifyUser_Sales() {
+        if (auth()->user() == null) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
+            
+            if (auth()->user()->role !== 'admin' || auth()->user()->role !== 'sales') {
+                return redirect('/')->with('error', 'You do not have permission to access this page.');
+            };
+        };
+    }
+
+    // Verifies The User // 
+    public static function VerifyUser() {
+        if (auth()->user() == null) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
+        };
+    }
+
     // -----------------------------------------------
     // Laravel Automatically matches up the name of Controller, Model and Database to conduct its search.
     // User Management Routes
     // View All Users
     public function create_user_management_view() {
+        UserController::VerifyUser_Admin();
+
         $users = User::all();
         return view('management.user.user_management', ['users' => $users]);
     }
 
     public function update_user(User $user) {
+        VerifyUser_Admin();
         return view('management.user.update_user', ['user' => $user]);
     }
 
@@ -66,6 +111,8 @@ class UserController extends Controller
     }
 
     public function update_user_post(Request $request, User $user) {
+        VerifyUser_Admin();
+
         $incomingfields = $request->validate([
             'name' => ['required', 'min:3', 'max:50'],
             'email' => ['required', 'min:3', 'max:30'],
@@ -79,10 +126,13 @@ class UserController extends Controller
     }
 
     public function create_user() {
+        VerifyUser_Admin();
         return view('management.user.create_user');
     }
 
     public function store_user(Request $request) {
+        VerifyUser_Admin();
+
         $incomingfields = $request->validate([
             'name' => ['required', 'min:3', 'max:50'],
             'email' => ['required', 'min:3', 'max:30'],

@@ -1,19 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Categorie;
 use App\Models\Order;
 use App\Models\Supplier;
-use App\Http\Controllers\ImageUploadController;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     // This function will return the view for product management.
     public function create_product_management_view() {
+        $Verification = UserController::VerifyUser();
         // Retrieve all products from the database
         $products = Product::all();
         $categories = Categorie::all();
@@ -26,6 +28,8 @@ class ProductController extends Controller
     // This controller handles the product management functionality
     // It includes methods for creating, viewing, updating, and deleting products
     public function create_view_product_view(Product $product) {
+        $Verification = UserController::VerifyUser();
+
         $product = Product::find(id: $product->id);
         if (!$product) {
             return redirect('/product_management')->with('error', 'Product not found');
@@ -35,6 +39,8 @@ class ProductController extends Controller
     }
 
     public function delete_product(Product $product) {
+        $Verification = UserController::VerifyUser_Admin();
+
         $product = Product::find(id: $product->id);
         if (!$product) {
             return redirect('/product_management')->with('error', 'Product not found');
@@ -47,6 +53,8 @@ class ProductController extends Controller
     }
 
     public function create_update_product_view(Product $product) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         $product = Product::find(id: $product->id);
         $Categories = DB::table('categories')->get();
         $Suppliers = DB::table('suppliers')->get();
@@ -58,6 +66,8 @@ class ProductController extends Controller
     }
 
     public function update_product(Request $request, Product $product) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
         $incomingfields = $request->validate([
             'ProductIMG' => ['nullable', 'image', 'max:4096'],
@@ -97,9 +107,11 @@ class ProductController extends Controller
     // Create Product View
     // This function will return the view for creating a new product.
     public function create_product_view() {
+        $Verification = UserController::VerifyUser();
         return view('management/product/create_product');
     }
     public function create_product(Request $request) {
+        $Verification = UserController::VerifyUser_Inventory();
     // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
 
     $incomingfields = $request->validate([
@@ -147,10 +159,13 @@ class ProductController extends Controller
     // -----------------------------------------------
     // This function will return the view for creating a new category.
     public function create_category_view() {
+        $Verification = UserController::VerifyUser();
         return view('management/product/category/create_category');
     }
     // This function will create a new category.
     public function create_category(Request $request) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         // Validate the incoming request data
         $incomingfields = $request->validate([
             'CategoryName' => ['required', 'min:0', 'max:50']
@@ -169,6 +184,8 @@ class ProductController extends Controller
 
     // This function will delete a category.
     public function delete_category(Categorie $category) {
+        $Verification = UserController::VerifyUser_Admin();
+
         $category = Categorie::find(id: $category->id);
         if ($category) {
             $category->delete();
@@ -179,6 +196,8 @@ class ProductController extends Controller
 
     // This function will return the view for updating a category.
     public function create_update_category_view(Categorie $category) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         $category = Categorie::find(id: $category->id);
         if (!$category) {
             return redirect('/product_management')->with('error', 'Category not found');
@@ -189,10 +208,14 @@ class ProductController extends Controller
     // ----------------------------------------------------------
     // This function will create the view for creating a new supplier.
     public function create_supplier_view() {
+        $Verification = UserController::VerifyUser_Inventory();
+
         return view('management/product/supplier/create_supplier');
     }
     // This function will create a new supplier.
     public function create_supplier(Request $request) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         // Validate the incoming request data
         $incomingfields = $request->validate([
             'SupplierName' => ['required', 'min:0', 'max:50'],
@@ -213,6 +236,7 @@ class ProductController extends Controller
     }
     // This function will delete a supplier.
     public function delete_supplier(Supplier $supplier) {
+        $Verification = UserController::VerifyUser_Admin();
         $supplier = Supplier::find(id: $supplier->id);
         if ($supplier) {
             $supplier->delete();
@@ -222,6 +246,8 @@ class ProductController extends Controller
     }
     // This function will return the view for updating a supplier.
     public function create_update_supplier_view(Supplier $supplier) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         $supplier = Supplier::find(id: $supplier->id);
         if (!$supplier) {
             return redirect('/product_management')->with('error', 'Supplier not found');
@@ -230,6 +256,8 @@ class ProductController extends Controller
     }
     // This function will update a supplier.
     public function update_supplier(Request $request, Supplier $supplier) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         // Validate the incoming request data
         $incomingfields = $request->validate([
             'SupplierName' => ['required', 'min:0', 'max:50'],
@@ -250,6 +278,8 @@ class ProductController extends Controller
     }
     // This function will return the view for viewing a supplier.
     public function create_view_supplier_view(Supplier $supplier) {
+        $Verification = UserController::VerifyUser();
+
         $supplier = Supplier::find(id: $supplier->id);
         if (!$supplier) {
             return redirect('/product_management')->with('error', 'Supplier not found');
@@ -260,12 +290,15 @@ class ProductController extends Controller
     // ----------------------------------------------------------
     // This function will create the view for creating a new order.
     public function create_order_view() {
+        $Verification = UserController::VerifyUser_Inventory();
+
         $suppliers = Supplier::all();
         $products = Product::all();
         return view('management/product/order/create_order', ['suppliers' => $suppliers, 'products' => $products]);
     }
     // This function will create a new order.
     public function create_order(Request $request) {
+        $Verification = UserController::VerifyUser_Inventory();
         // Validate the incoming request data
         $incomingfields = $request->validate([
             'SupplierID' => ['required', 'min:0', 'max:1000'],
@@ -289,6 +322,7 @@ class ProductController extends Controller
     }
     // This function will delete an order.
     public function delete_order(Order $order) {
+        $Verification = UserController::VerifyUser_Inventory();
         $order = Order::find(id: $order->id);
         if ($order) {
             $order->delete();
@@ -298,6 +332,8 @@ class ProductController extends Controller
     }
     // This function will return the view for updating an order.
     public function create_update_order_view(Order $order) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         $order = Order::find(id: $order->id);
         if (!$order) {
             return redirect('/product_management')->with('error', 'Order not found');
@@ -308,6 +344,8 @@ class ProductController extends Controller
     }
     // This function will update an order.
     public function update_order(Request $request, Order $order) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         // Validate the incoming request data
         $incomingfields = $request->validate([
             'SupplierID' => ['required', 'min:0', 'max:1000'],
@@ -331,6 +369,8 @@ class ProductController extends Controller
     }
     // This function will return the view for viewing an order.
     public function create_view_order_view(Order $order) {
+        $Verification = UserController::VerifyUser_Inventory();
+
         $order = Order::find(id: $order->id);
         if (!$order) {
             return redirect('/product_management')->with('error', 'Order not found');
