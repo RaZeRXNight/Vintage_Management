@@ -11,48 +11,79 @@ class UserController extends Controller
     //-----------------------------------------------
     // User Verification
     // Verifies The User and Checks if they're an Administrator // 
-    public static function VerifyUser_Admin() {
-        if (auth()->user() == null) {
+    // Verifies The User // 
+    public static function VerifyUser(string $Role) {
+        $message = 'VERIFYING USER...';
+        echo("<script>console.log('" . addslashes($message) . "')</script>");
+
+        if (auth()->user() === null) {
+            $message = 'UNABLE TO VERIFY USER...';
+            echo("<script>console.log('" . addslashes($message) . "')</script>");
+
             return redirect('/')->with('error', 'You do not have permission to access this page.');
         }
         else {
-            if (!auth()->user()->role === 'admin') {
-                return redirect('/')->with('error', 'You do not have permission to access this page.');
-            };
+            $message = 'VERIFIED USER...' . auth()->user()->role;
+            echo("<script>console.log('" . addslashes($message) . "')</script>");
+
+            return auth()->user()->role;
+        };
+    }
+
+    public static function VerifyUser_Admin() {
+        $message = 'VERIFYING...';
+        echo("<script>console.log('" . addslashes($message) . "')");
+
+        $user = self::VerifyUser();
+
+        if ($user instanceof \Illuminate\Http\RedirectResponse) {
+            return $user;
+        }
+
+        $message = 'VERIFYING...' . $user;
+        echo("<script>console.log('" . addslashes($message) . "')");
+
+        if ($user !== 'admin') {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
         };
     }
 
     // Verifies The User and their Product Role and Checks if they're an Administrator // 
     public static function VerifyUser_Inventory() {
-        if (auth()->user() == null) {
-            return redirect('/')->with('error', 'You do not have permission to access this page.');
+        $message = 'VERIFYING...';
+        echo("<script>console.log('" . addslashes($message) . "')");
+
+        $user = self::VerifyUser();
+
+        if ($user instanceof \Illuminate\Http\RedirectResponse) {
+            return $user;
         }
-        else {
-            if (!auth()->user()->role == 'admin' || !auth()->user()->role === 'inventory') {
-                return redirect('/')->with('error', 'You do not have permission to access this page.');
-            };
+
+        $message = 'VERIFYING...' . $user;
+        echo("<script>console.log('" . addslashes($message) . "')");
+
+        if (!($user === 'admin' || $user ===  'inventory')) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
         };
     }
 
     // Verifies The User and their Sales Role and Checks if they're an Administrator // 
     public static function VerifyUser_Sales() {
-        if (auth()->user() == null) {
-            return redirect('/')->with('error', 'You do not have permission to access this page.');
-        }
-        else {
-            if (!auth()->user()->role === 'admin' || !auth()->user()->role === 'user') {
-                
-                return redirect('/')->with('error', 'You do not have permission to access this page.');
-            };
-        };
-    }
+        $message = 'VERIFYING...';
+        echo("<script>console.log('" . addslashes($message) . "')");
 
-    // Verifies The User // 
-    public static function VerifyUser() {
-        if (auth()->user() === null) {
-            return redirect('/')->with('error', 'You do not have permission to access this page.');
+        $user = self::VerifyUser();
+
+        if ($user instanceof \Illuminate\Http\RedirectResponse) {
+            return $user;
         }
-        else {return true;};
+
+        $message = 'VERIFYING...' . $user;
+        echo("<script>console.log('" . addslashes($message) . "')");
+
+        if (!($user === 'admin' || $user === 'user')) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
+        };
     }
 
     // -----------------------------------------------
@@ -60,14 +91,14 @@ class UserController extends Controller
     // User Management Routes
     // View All Users
     public function create_user_management_view() {
-        UserController::VerifyUser_Admin();
+        self::VerifyUser_Admin();
 
         $users = User::all();
         return view('management.user.user_management', ['users' => $users]);
     }
 
     public function update_user(User $user) {
-        UserController::VerifyUser_Admin();
+        self::VerifyUser_Admin();
         return view('management.user.update_user', ['user' => $user]);
     }
 
@@ -76,7 +107,7 @@ class UserController extends Controller
     }
 
     public function update_user_post(Request $request, User $user) {
-        UserController::VerifyUser_Admin();
+        self::VerifyUser_Admin();
 
         $incomingfields = $request->validate([
             'name' => ['required', 'min:3', 'max:50'],
@@ -91,12 +122,12 @@ class UserController extends Controller
     }
 
     public function create_user() {
-        UserController::VerifyUser_Admin();
+        self::VerifyUser_Admin();
         return view('management.user.create_user');
     }
 
     public function store_user(Request $request) {
-        UserController::VerifyUser_Admin();
+        self::VerifyUser_Admin();
 
         $incomingfields = $request->validate([
             'name' => ['required', 'min:3', 'max:50'],
