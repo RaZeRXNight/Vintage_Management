@@ -21,6 +21,9 @@ class ReportController extends Controller
     {
         // Checking if User is Authenticated as Admin.
         $Verification = UserController::VerifyUser_Admin();
+        if (!is_string($Verification)) {
+            return $Verification;
+        }
         
 
         $Product = Product::all();

@@ -17,8 +17,9 @@ class ProductController extends Controller
     public function create_product_management_view() {
         $Verification = UserController::VerifyUser();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
+
         // Retrieve all products from the database
         $products = Product::all();
         $categories = Categorie::all();
@@ -33,7 +34,7 @@ class ProductController extends Controller
     public function create_view_product_view(Product $product) {
         $Verification = UserController::VerifyUser();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $product = Product::find(id: $product->id);
@@ -47,7 +48,7 @@ class ProductController extends Controller
     public function delete_product(Product $product) {
         $Verification = UserController::VerifyUser_Admin();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $product = Product::find(id: $product->id);
@@ -56,15 +57,15 @@ class ProductController extends Controller
         }
 
         // Delete the product
-        $product->delete();
-
-        return redirect('/product_management')->with('success', 'Product deleted successfully');
+        if ($product->delete()) {
+            return redirect('/product_management')->with('success', 'Product deleted successfully');
+        }
     }
 
     public function create_update_product_view(Product $product) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $product = Product::find(id: $product->id);
@@ -78,9 +79,9 @@ class ProductController extends Controller
     }
 
     public function update_product(Request $request, Product $product) {
-        $Verification = UserController::VerifyUser_Inventory();
+        $Verification = UserController::VerifyUser();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
@@ -102,7 +103,6 @@ class ProductController extends Controller
         // The ImageUploadController is used to upload the image to the server.
         // The ImageUploadController will return the path to the image, which is then stored in the ProductIMG field.
         if($request->hasFile('ProductIMG')) { // Check if the request has a file
-            echo $incomingfields['ProductIMG']; 
             $imageUploadController = new ImageUploadController(); // Create an instance of ImageUploadController
             // Call the upload method with the request
             $incomingfields['ProductIMG'] = $imageUploadController->upload($request, 'uploads/product_images'); 
@@ -124,14 +124,14 @@ class ProductController extends Controller
     public function create_product_view() {
         $Verification = UserController::VerifyUser();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
         return view('management/product/create_product');
     }
     public function create_product(Request $request) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
     // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
 
@@ -155,7 +155,6 @@ class ProductController extends Controller
 
 
     if($request->hasFile('ProductIMG')) { // Check if the request has a file
-        echo $incomingfields['ProductIMG']; 
         $imageUploadController = new ImageUploadController(); // Create an instance of ImageUploadController
         // Call the upload method with the request
         $incomingfields['ProductIMG'] = $imageUploadController->upload($request, 'storage'); 
@@ -182,7 +181,7 @@ class ProductController extends Controller
     public function create_category_view() {
         $Verification = UserController::VerifyUser();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
         return view('management/product/category/create_category');
     }
@@ -190,7 +189,7 @@ class ProductController extends Controller
     public function create_category(Request $request) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         // Validate the incoming request data
@@ -213,7 +212,7 @@ class ProductController extends Controller
     public function delete_category(Categorie $category) {
         $Verification = UserController::VerifyUser_Admin();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $category = Categorie::find(id: $category->id);
@@ -228,7 +227,7 @@ class ProductController extends Controller
     public function create_update_category_view(Categorie $category) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $category = Categorie::find(id: $category->id);
@@ -243,7 +242,7 @@ class ProductController extends Controller
     public function create_supplier_view() {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         return view('management/product/supplier/create_supplier');
@@ -252,7 +251,7 @@ class ProductController extends Controller
     public function create_supplier(Request $request) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         // Validate the incoming request data
@@ -277,7 +276,7 @@ class ProductController extends Controller
     public function delete_supplier(Supplier $supplier) {
         $Verification = UserController::VerifyUser_Admin();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
         $supplier = Supplier::find(id: $supplier->id);
         if ($supplier) {
@@ -290,7 +289,7 @@ class ProductController extends Controller
     public function create_update_supplier_view(Supplier $supplier) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $supplier = Supplier::find(id: $supplier->id);
@@ -303,7 +302,7 @@ class ProductController extends Controller
     public function update_supplier(Request $request, Supplier $supplier) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         // Validate the incoming request data
@@ -328,7 +327,7 @@ class ProductController extends Controller
     public function create_view_supplier_view(Supplier $supplier) {
         $Verification = UserController::VerifyUser();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $supplier = Supplier::find(id: $supplier->id);
@@ -343,7 +342,7 @@ class ProductController extends Controller
     public function create_order_view() {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $suppliers = Supplier::all();
@@ -354,7 +353,7 @@ class ProductController extends Controller
     public function create_order(Request $request) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
         // Validate the incoming request data
         $incomingfields = $request->validate([
@@ -381,7 +380,7 @@ class ProductController extends Controller
     public function delete_order(Order $order) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
         $order = Order::find(id: $order->id);
         if ($order) {
@@ -394,7 +393,7 @@ class ProductController extends Controller
     public function create_update_order_view(Order $order) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $order = Order::find(id: $order->id);
@@ -409,7 +408,7 @@ class ProductController extends Controller
     public function update_order(Request $request, Order $order) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         // Validate the incoming request data
@@ -437,7 +436,7 @@ class ProductController extends Controller
     public function create_view_order_view(Order $order) {
         $Verification = UserController::VerifyUser_Inventory();
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
-            return redirect($Verification);
+            return $Verification;
         }
 
         $order = Order::find(id: $order->id);

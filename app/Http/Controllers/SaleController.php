@@ -19,13 +19,19 @@ class SaleController extends Controller
     // Create Product View
     // This function will return the view for creating a new product.
     public function create_sale_view() {
-        UserController::VerifyUser_Sales();
+        $Verification = UserController::VerifyUser_Sales(); 
+        if ($Verification) {
+            return $Verification;
+        }
         return view( 'management/sale/create_sale');
     }
     // Create Sale
     // This function will handle the creation of a new Sale.
     public function create_sale(Request $request) {
-        UserController::VerifyUser_Sales();
+        $Verification = UserController::VerifyUser_Sales(); 
+        if ($Verification) {
+            return $Verification;
+        }
 
         // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
         $current_date = date('Y-m-d H:i:s');
@@ -67,7 +73,10 @@ class SaleController extends Controller
     // This function will return the view for creating a new sale.
     // This function will handle the creation of a new sale.
     public function create_view_transaction_view(Transaction $transaction) {
-        UserController::VerifyUser_Sales();
+        $Verification = UserController::VerifyUser_Sales(); 
+        if ($Verification) {
+            return $Verification;
+        }
 
         $transaction = Transaction::find(id: $transaction->id);
         $Sales = Sale::where('TransactionID',$transaction->id, null)->get();
@@ -79,8 +88,10 @@ class SaleController extends Controller
     }
 
     public function delete_sale(Sale $sale) {
-        UserController::VerifyUser_Admin();
-
+        $Verification = UserController::VerifyUser_Admin();
+        if ($Verification) {
+            return $Verification;
+        }
         $sale = Sale::find(id: $sale->id);
         if (!$sale) {
             return redirect('/sale_management')->with('error', 'Sale not found');
@@ -94,11 +105,15 @@ class SaleController extends Controller
 
     // Delete Transaction
     public function delete_transaction(Transaction $transaction) {
-        UserController::VerifyUser_Admin();
+        $Verification = UserController::VerifyUser_Admin();
+        if ($Verification) {
+            return $Verification;
+        }
 
         if (!$transaction) {
             return redirect('/sale_management')->with('error', 'Transaction not found');
         };
+        
         $sales = Sale::where('TransactionID',$transaction->id)->get();
 
         foreach($sales as $sale) {
@@ -112,7 +127,10 @@ class SaleController extends Controller
     }
 
     public function create_update_sale_view(Sale $sale) {
-        UserController::VerifyUser_Sales();
+        $Verification = UserController::VerifyUser_Sales(); 
+        if ($Verification) {
+            return $Verification;
+        }
 
         $sale = Sale::find(id: $sale->id);
         if (!$sale) {
@@ -123,7 +141,10 @@ class SaleController extends Controller
     }
 
     public function update_sale(Request $request, Sale $sale) {
-        UserController::VerifyUser_Sales();
+        $Verification = UserController::VerifyUser_Sales(); 
+        if ($Verification) {
+            return $Verification;
+        }
 
         // Incoming Fields will validate the information submitted in the Request, comparing it to the rules we declare.
         $incomingfields = $request->validate([
