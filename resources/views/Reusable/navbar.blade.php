@@ -32,9 +32,9 @@
                 </div>
 
 
-                {{-- <div class="dropdown group">
+                <div class="dropdown group">
                     <a href='/report_management' id='report_management'>Report Management</a>
-                </div> --}}
+                </div>
 
                 <form action="/logout" method="POST"> @csrf <button>Log Out</button> </form>
                 

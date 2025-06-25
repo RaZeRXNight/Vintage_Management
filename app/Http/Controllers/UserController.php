@@ -7,7 +7,109 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
-{   //The Request Variable Holds information passed from the Forms submitted.
+{   
+    //-----------------------------------------------
+    // User Verification
+    // Verifies The User and Checks if they're an Administrator // 
+    public static function VerifyUser_Admin() {
+        if (auth()->user() == null) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
+        }
+        else {
+            if (!auth()->user()->role === 'admin') {
+                return redirect('/')->with('error', 'You do not have permission to access this page.');
+            };
+        };
+    }
+
+    // Verifies The User and their Product Role and Checks if they're an Administrator // 
+    public static function VerifyUser_Inventory() {
+        if (auth()->user() == null) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
+        }
+        else {
+            if (!auth()->user()->role == 'admin' || !auth()->user()->role === 'inventory') {
+                return redirect('/')->with('error', 'You do not have permission to access this page.');
+            };
+        };
+    }
+
+    // Verifies The User and their Sales Role and Checks if they're an Administrator // 
+    public static function VerifyUser_Sales() {
+        if (auth()->user() == null) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
+        }
+        else {
+            if (!auth()->user()->role === 'admin' || !auth()->user()->role === 'user') {
+                
+                return redirect('/')->with('error', 'You do not have permission to access this page.');
+            };
+        };
+    }
+
+    // Verifies The User // 
+    public static function VerifyUser() {
+        if (auth()->user() === null) {
+            return redirect('/')->with('error', 'You do not have permission to access this page.');
+        }
+        else {return true;};
+    }
+
+    // -----------------------------------------------
+    // Laravel Automatically matches up the name of Controller, Model and Database to conduct its search.
+    // User Management Routes
+    // View All Users
+    public function create_user_management_view() {
+        UserController::VerifyUser_Admin();
+
+        $users = User::all();
+        return view('management.user.user_management', ['users' => $users]);
+    }
+
+    public function update_user(User $user) {
+        UserController::VerifyUser_Admin();
+        return view('management.user.update_user', ['user' => $user]);
+    }
+
+    public function view_user(User $user) {
+        return view('management.user.view_user', ['user' => $user]);
+    }
+
+    public function update_user_post(Request $request, User $user) {
+        UserController::VerifyUser_Admin();
+
+        $incomingfields = $request->validate([
+            'name' => ['required', 'min:3', 'max:50'],
+            'email' => ['required', 'min:3', 'max:30'],
+            'password' => ['required', 'max: 20']
+        ]);
+        
+        $incomingfields['password'] = bcrypt($incomingfields['password']);
+        $user->update($incomingfields);
+        
+        return redirect('/management/user/view_user/' . $user->id);
+    }
+
+    public function create_user() {
+        UserController::VerifyUser_Admin();
+        return view('management.user.create_user');
+    }
+
+    public function store_user(Request $request) {
+        UserController::VerifyUser_Admin();
+
+        $incomingfields = $request->validate([
+            'name' => ['required', 'min:3', 'max:50'],
+            'email' => ['required', 'min:3', 'max:50'],
+            'role' => ['required', 'min:3', 'max:50'],
+            'password' => ['required', 'max: 20']
+        ]);
+        
+        $incomingfields['password'] = bcrypt($incomingfields['password']);
+        $user = User::create($incomingfields);
+        
+        return redirect('/user_management/view_user/view_user/' . $user->id);
+    }
 
     // Regisers the User adding their Name, Email and Password to the Database.
     public function register(Request $request) {
@@ -46,102 +148,5 @@ class UserController extends Controller
     public function logout(Request $request) {
         auth()->logout();
         return redirect('/');
-    }
-
-    //-----------------------------------------------
-    // User Verification
-    // Verifies The User and Checks if they're an Administrator // 
-    public static function VerifyUser_Admin() {
-        if (auth()->user() == null) {
-            return redirect('/')->with('error', 'You do not have permission to access this page.');
-            
-            if (auth()->user()->role !== 'admin') {
-                return redirect('/')->with('error', 'You do not have permission to access this page.');
-            };
-        };
-    }
-
-    // Verifies The User and their Product Role and Checks if they're an Administrator // 
-    public static function VerifyUser_Inventory() {
-        if (auth()->user() == null) {
-            return redirect('/')->with('error', 'You do not have permission to access this page.');
-            
-            if (auth()->user()->role !== 'admin' || auth()->user()->role !== 'inventory') {
-                return redirect('/')->with('error', 'You do not have permission to access this page.');
-            };
-        };
-    }
-
-    // Verifies The User and their Sales Role and Checks if they're an Administrator // 
-    public static function VerifyUser_Sales() {
-        if (auth()->user() == null) {
-            return redirect('/')->with('error', 'You do not have permission to access this page.');
-            
-            if (auth()->user()->role !== 'admin' || auth()->user()->role !== 'sales') {
-                return redirect('/')->with('error', 'You do not have permission to access this page.');
-            };
-        };
-    }
-
-    // Verifies The User // 
-    public static function VerifyUser() {
-        if (auth()->user() == null) {
-            return redirect('/')->with('error', 'You do not have permission to access this page.');
-        };
-    }
-
-    // -----------------------------------------------
-    // Laravel Automatically matches up the name of Controller, Model and Database to conduct its search.
-    // User Management Routes
-    // View All Users
-    public function create_user_management_view() {
-        UserController::VerifyUser_Admin();
-
-        $users = User::all();
-        return view('management.user.user_management', ['users' => $users]);
-    }
-
-    public function update_user(User $user) {
-        VerifyUser_Admin();
-        return view('management.user.update_user', ['user' => $user]);
-    }
-
-    public function view_user(User $user) {
-        return view('management.user.view_user', ['user' => $user]);
-    }
-
-    public function update_user_post(Request $request, User $user) {
-        VerifyUser_Admin();
-
-        $incomingfields = $request->validate([
-            'name' => ['required', 'min:3', 'max:50'],
-            'email' => ['required', 'min:3', 'max:30'],
-            'password' => ['required', 'max: 20']
-        ]);
-        
-        $incomingfields['password'] = bcrypt($incomingfields['password']);
-        $user->update($incomingfields);
-        
-        return redirect('/management/user/view_user/' . $user->id);
-    }
-
-    public function create_user() {
-        VerifyUser_Admin();
-        return view('management.user.create_user');
-    }
-
-    public function store_user(Request $request) {
-        VerifyUser_Admin();
-
-        $incomingfields = $request->validate([
-            'name' => ['required', 'min:3', 'max:50'],
-            'email' => ['required', 'min:3', 'max:30'],
-            'password' => ['required', 'max: 20']
-        ]);
-        
-        $incomingfields['password'] = bcrypt($incomingfields['password']);
-        $user = User::create($incomingfields);
-        
-        return redirect('/management/user/view_user/' . $user->id);
     }
 }
