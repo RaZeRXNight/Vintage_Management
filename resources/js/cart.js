@@ -21,9 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const userID = document.getElementById('UserID').textContent;
-
-    
-
     // Event Listeners for add to cart buttons
     document.getElementById('cart-product-items').addEventListener('click', function(event) {
         const btn = event.target.closest('.add-to-cart');
@@ -72,9 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(listImage);
 
             const listItem = document.createElement('div');
-            listItem.className = 'flex flex-col justify-end min-h-50 max-w-50 min-w-fit';
+            listItem.className = 'product-card';
             listItem.innerHTML = '<button class="remove-from-cart" id=' + item.id + '>' +
-                '<img class="rounded-t-2xl max-w-35 max-h-35" src=' + listImage + ' alt="Product Image" /> ' +
+                '<img src=' + listImage + ' alt="Product Image" /> ' +
                 '</button>' + '<div class="flex flex-col max-w-full border divide-x-1 text-center">' +
                 '<span>' + item.productName + '</span></div>' +
                 '<div class="flex flex-row justify-around max-w-full border"><span>' + item.quantity + '</span>' +

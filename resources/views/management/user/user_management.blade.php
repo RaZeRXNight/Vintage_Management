@@ -35,7 +35,13 @@
                             <td><a href='user_management/view_user/{{$Data['id']}}'>{{$Data['name']}}</a></td> 
                             <td>{{$Data['email']}}</td> 
                             <td><a href='user_management/update_user/{{$Data['id']}}'>Update</a></td>
-                            <td><a href='user_management/delete_user/{{$Data['id']}}'>Delete</a></td>
+                            <td>
+                                <form method="POST" action='user_management/delete_user/{{$Data['id']}}'>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button href=''>Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

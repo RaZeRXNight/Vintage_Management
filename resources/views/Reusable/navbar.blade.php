@@ -21,6 +21,9 @@
 
                 <div class="dropdown group">
                     <a href='/user_management' id='user_management'>User Management</a>
+                    <div class="dropdown-content">
+                        <a href='user_management/create_user/'>Create New User</a>
+                    </div>
                 </div>
 
                 <div class="dropdown group">

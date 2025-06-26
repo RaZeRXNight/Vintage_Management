@@ -12,7 +12,7 @@ use App\Models\Sale;
 
 // ------------------------------------------------------
 // Home Route
-Route::get('/', function () { return view('home'); });
+Route::get('/', function () { $products = Product::all(); return view('home', ['products' => $products]); });
 
 // ------------------------------------------------------
 // View All Categories
@@ -59,7 +59,7 @@ Route::delete('/product_management/delete_product/{product}', [ProductController
 
 // Sale Management Routes
 // View All Sales
-Route::get('/sale_management', function () { $sales = Sale::all(); $transactions = Transaction::all(); return view('management/sale/sale_management', ['sales' => $sales, 'transactions' => $transactions]); });
+Route::get('/sale_management', [SaleController::class, 'create_sale_management_view']);
 // Create Sale
 Route::get('/sale_management/create_sale', [SaleController::class, 'create_sale_view']);
 Route::post('/sale_management/create_sale', [SaleController::class, 'create_sale'])->name('sale_management.create_sale');

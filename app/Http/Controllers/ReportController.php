@@ -15,16 +15,13 @@ use App\Models\Transaction;
 class ReportController extends Controller
 {
     //
-    
-
     public function create_report_management_view()
     {
         // Checking if User is Authenticated as Admin.
         $Verification = UserController::VerifyUser_Admin();
-        if (!is_string($Verification)) {
+        if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
             return $Verification;
         }
-        
 
         $Product = Product::all();
         $Sale = Sale::all();

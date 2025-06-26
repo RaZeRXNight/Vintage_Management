@@ -19,11 +19,15 @@
 }
 
 form input {
-    @apply border text-center rounded-2xl min-w-full;
+    @apply border text-center rounded-2xl min-w-full caret-[var(--accent)] border-[var(--accent)];
 }
 
 form textarea {
-    @apply border text-center rounded-2xl min-w-full;
+    @apply border text-center rounded-2xl min-w-full caret-[var(--accent)] border-[var(--accent)];
+}
+
+form select {
+    @apply border text-center rounded-2xl caret-[var(--accent)] border-[var(--accent)];
 }
 
 .form-group-row {

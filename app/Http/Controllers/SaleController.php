@@ -18,6 +18,19 @@ class SaleController extends Controller
     // It includes methods for creating, viewing, updating, and deleting sales
     // Create Product View
     // This function will return the view for creating a new product.
+
+    public function create_sale_management_view() {
+        $Verification = UserController::VerifyUser_Sales(); 
+        if ($Verification) {
+            return $Verification;
+        }
+        
+        $sales = Sale::all(); 
+        $transactions = Transaction::all();
+
+        return view('management/sale/sale_management', ['sales' => $sales, 'transactions' => $transactions]);
+    }
+
     public function create_sale_view() {
         $Verification = UserController::VerifyUser_Sales(); 
         if ($Verification) {

@@ -15,7 +15,17 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
     --blur-2xs: 2px;
-    
+}
+
+:root {
+    --accent: #f87171;
+    --bg: #a1a1a1;
+    --mbg: #e7e5e4;
+    --bordera: #0000;
+}
+
+main div {
+    @apply border-[var(--bordera)] gap-1;
 }
 
 header {
@@ -26,8 +36,9 @@ header {
 }
 
 body {
-    @apply bg-neutral-400; 
+    @apply bg-[var(--bg)]; 
 }
+
 /* Headers */
 h1 {@apply text-3xl text-center;}
 h2 {@apply text-2xl text-center;}
@@ -36,27 +47,29 @@ h3 {@apply text-lg text-center;}
 
 /* Buttons */
 a {
-    @apply text-red-400 container max-w-full whitespace-nowrap
+    @apply text-[var(--accent)] max-w-full whitespace-nowrap
     justify-self-center 
-    border p-1 m-0.5
+    border p-1 min-h-fit min-w-fit text-center
     hover:bg-gradient-to-t hover:bg-amber-100 hover:to-50%;
 }
 
 button {
-    @apply text-red-400 whitespace-nowrap cursor-pointer 
-    container max-w-full justify-self-center 
-    border p-1 mb-0.5 mt-0.5
+    @apply text-[var(--accent)] whitespace-nowrap cursor-pointer 
+    max-w-full max-h-full min-h-fit min-w-fit 
+    justify-self-center text-center
+    border p-1 
     hover:bg-gradient-to-t hover:bg-amber-100 hover:to-50%;
 }
 
 main {
     @apply justify-self-center min-h-screen max-h-fit min-w-8/10 max-w-9/10 p-5
-    bg-white shadow-xl shadow-neutral-600;
+    bg-[var(--mbg)] shadow-xl shadow-neutral-600;
 }
+
 
 .content {
     @apply container flex flex-col items-center  rounded-2xl p-5 m-5 border-2 max-w-5/10 ;
-    @apply bg-white border-gray-200 shadow-lg shadow-neutral-600;
+    @apply bg-[var(--mbg)] border-gray-200 shadow-lg shadow-neutral-600;
 }
 
     .content div {

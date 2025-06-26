@@ -8,11 +8,11 @@
 }
 .product-card {
     @apply flex flex-col justify-end p-1
-    min-h-fit max-w-50 min-w-fit
-    ;
+    min-h-50 max-w-50 min-w-fit
+    border-[var(--bordera)] border-2;
 }
     .product-card img {
-        @apply hover:size-full;
+        @apply hover:size-full rounded-t-2xl max-w-35 max-h-35;
     }
     
 .cart-footer {
