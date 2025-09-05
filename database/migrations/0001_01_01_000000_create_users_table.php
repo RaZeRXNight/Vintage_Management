@@ -39,9 +39,9 @@ return new class extends Migration
         });
 
         DB::table('users')->insert([
-            'name' => 'Ricardo Miller',
+            'name' => 'John Doe',
             'role' => 'admin', 
-            'email' => 'ricardomiller102003@gmail.com',
+            'email' => 'johndoe@gmail.com',
             'password' => bcrypt('password'),
         ]);
     }
