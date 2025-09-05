@@ -3,7 +3,7 @@
 
 @include('reusable.head')
 
-<body>
+<body class="flex flex-col">
     @auth
         <form id='Hidden-Stash' hidden>
             <input type='hidden' id='products-data' value='@json($products)'>
@@ -12,7 +12,7 @@
             <input type='hidden' id='categories-data' value='@json($categories)'>
         </form>
         @include('Reusable.navbar')
-        <main>
+        <main class="centered_main">
             <section class='flex flex-row min-w-full justify-center'>
                 <div class="content">
                     <!-- Add your content here -->
@@ -78,31 +78,6 @@
                             </thead>
                             <tbody id='suppliers-items'>
                                 <!-- Supplier rows will be populated here -->
-                            </tbody>
-                        </table>
-                        <div class='pagination-controls' id='pagination-controls'>
-
-                        </div>
-                    </section>
-
-                    <section class="container-border-full" id='order-management'>
-                        <div class='flex flex-col justify-center'>
-                            <h2 class='text-center'>Orders</h2>
-                            <h3 id='Current_Filter'>Showing All</h3>
-                            <input class='text-center' id='Search' type='text' placeholder='Search for Order'>
-                        </div>
-                        <table class="list-table">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Product Name</th>
-                                    <th>Quantity</th>
-                                    <th>Total Price</th>
-                                    <th>Order Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id='orders-items'>
-                                <!-- Order rows will be populated here -->
                             </tbody>
                         </table>
                         <div class='pagination-controls' id='pagination-controls'>

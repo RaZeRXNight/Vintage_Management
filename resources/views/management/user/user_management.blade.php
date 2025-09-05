@@ -7,9 +7,9 @@
     @auth
     @include('reusable.navbar')
 
-    <main >
+    <main class="centered_main">
         <section class='self-center text-center'>
-            <h1>Report Management</h1>
+            <h1>User Management</h1>
         </section>
 
         <section class='flex flex-col justify-start gap-10 p-10 border-2 border-gray-300 bg-white shadow-md'>

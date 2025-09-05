@@ -15,7 +15,6 @@
                         <a href="/product_management/create_product">Create Product</a>
                         <a href="/product_management/category/create_category">Create Category</a>
                         <a href="/product_management/supplier/create_supplier">Create Supplier</a>
-                        <a href="/product_management/order/create_order">Create Order</a>
                     </div>
                 </div>
 

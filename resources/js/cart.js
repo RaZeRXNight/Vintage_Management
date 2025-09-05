@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cart-product-items').addEventListener('click', function(event) {
         const btn = event.target.closest('.add-to-cart');
         if (btn) {
-            console.log('Add to cart button clicked');
             const productRow = btn.closest('.product-card');
             const productId = productRow.dataset.id;
             const productName = productRow.dataset.name;
@@ -37,15 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (existingProduct) {
                 existingProduct.quantity += 1;
                 existingProduct.total = existingProduct.productPrice * existingProduct.quantity;
-                console.log('Product already in cart:', existingProduct.productName);
-                console.log('Updated quantity:', existingProduct.quantity);
-                console.log('Product total:', existingProduct.total);
             } else {
                 cart.push({ id: productId, productName: productName, productPrice: productPrice, quantity: 1, total: productPrice });
-                console.log('Product added to cart:');
-                console.log('Product ID:', productId);
-                console.log('Product name:', productName);
-                console.log('Product price:', productPrice);
             }
             updateCart();
         };
@@ -54,9 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCart() {
         // Lays out a foundation for listItems to be created and displayed, 
         // This location is on the Indicated ID on the Created HTML Page.
-        console.log('Updating cart...');
         // Current Cart Items
-        console.log(JSON.stringify(cart, null, 4));
         cartItems.innerHTML = '';
         receiptItems.innerHTML = '';
         let total = 0;
@@ -66,14 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const listImage = imgElement ? imgElement.src : '';
             // Creates an Element under the Variable listItems within CartItems.
 
-            console.log(listImage);
-
             const listItem = document.createElement('div');
             listItem.className = 'product-card';
             listItem.innerHTML = '<button class="remove-from-cart" id=' + item.id + '>' +
                 '<img src=' + listImage + ' alt="Product Image" /> ' +
                 '</button>' + '<div class="flex flex-col max-w-full border divide-x-1 text-center">' +
-                '<span>' + item.productName + '</span></div>' +
+                '<span>' + productName + '</span></div>' +
                 '<div class="flex flex-row justify-around max-w-full border"><span>' + item.quantity + '</span>' +
                 '<span>$' + item.total.toFixed(2) + '</span></div>';
 
@@ -113,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         // Updates the total price
 
-        console.log('Total:', total);
         cartTotal.value = `${total.toFixed(2)}`;
         receiptTotal.value = `${total.toFixed(2)}`;
     }
@@ -129,11 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cart[productIndex].quantity > 1) {
                     cart[productIndex].quantity -= 1;
                     cart[productIndex].total = cart[productIndex].productPrice * cart[productIndex].quantity;
-                    console.log('Product quantity updated:', productId);
                 } else {
                     // Remove product from cart if quantity is 1
                     cart.splice(productIndex, 1);
-                    console.log('Product quantity is 1, removing from cart:', productId);
                 }
                 updateCart();
             }
@@ -185,11 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
             checkoutForm.appendChild(PaymentMethod);
 
             checkoutForm.submit();
-            console.log('Cart data sent to server:', cart);
             // Optionally, you can redirect the user to a confirmation page or show a success message
             // window.location.href = '/';
         }
-        console.log('Form submitted with cart:', cart);
     });
 
 });

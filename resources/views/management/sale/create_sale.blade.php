@@ -24,7 +24,7 @@
 <body>
     @auth
         @include('reusable.navbar')
-        <main class="flex flex-row justify-around w-full min-h-fit outline-2 p-10 text-center">
+        <main class="centered_main flex flex-row justify-around w-full min-h-fit outline-2 p-10 text-center">
             <!-- Add your sale management content here -->
 
             <article class='cart' id='Transaction'>
@@ -68,8 +68,6 @@
                         <input class='text-center' type='number' id='cart-total' value='0' readonly step='0.01' />
 
                         <div class='flex flex-row gap-3 justify-around' id='PaymentMethod'>
-                            <button class='min-w-fit' id='cash'>Cash</button>
-                            <button class='min-w-fit' id='card'>Card</button>
                         </div>
 
                         <form class='max-w-9/10 justify-self-center' id='checkout-form'> @csrf <button id='submit-button'>Checkout</button> </form>

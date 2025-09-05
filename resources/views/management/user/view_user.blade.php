@@ -7,7 +7,7 @@
     @auth
     @include('reusable.navbar')
 
-    <main>
+    <main class="centered_main">
         <section>
             <div class="container mt-5 mb-5">
                 <h2>User Details</h2>

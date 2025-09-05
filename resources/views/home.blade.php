@@ -5,7 +5,7 @@
     <body>
         @include('reusable.navbar')
     @auth
-        <main class='flex flex-row justify-start p-2 gap-2'>
+        <main class='centered_main flex flex-row justify-start p-2 gap-2'>
             <section class='flex flex-col justify-start border-2 min-w-8/10 p-2 gap-2'>
                 <div class='flex flex-row justify-start'>
                     <h1>Role: {{ucfirst(Auth()->user()->role)}}</h1>
@@ -51,7 +51,7 @@
             </section>
         </main>
     @else 
-        <main>
+        <main class="centered_main">
             <div class='container justify-items-center items-center flex flex-col p-52'>
                 <h1 class='text-4xl font-bold mb-4'>Welcome to Our Application</h1>
                 <p class='text-lg mb-8'>Please log in to continue.</p>

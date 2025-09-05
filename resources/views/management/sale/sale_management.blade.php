@@ -5,7 +5,7 @@
     <body class='flex flex-col '>
     @auth
     @include('reusable.navbar')
-    <main class='container self-center'>
+    <main class='centered_main container self-center'>
 
     <section class='flex flex-row min-w-full justify-center'>
         <div class="content">
@@ -28,7 +28,7 @@
                    <th>Total Price</th>
                    <th>Transaction Date</th>
                    @if(auth()->user() && auth()->user()->role === 'admin')
-                       <th>Actions</th>
+                       <th>Action</th>
                    @endif
                </tr>
            </thead>
@@ -41,7 +41,7 @@
                        <td>${{ $transaction->TotalPrice }}</td>
                        <td>{{ $transaction->created_at }}</td>
                        @if(auth()->user() && auth()->user()->role === 'admin')
-                            <td><a href="/sale_management/update_transaction/{{ $transaction->id }}">Manage</a></td>
+                            {{-- <td><a href="/sale_management/update_transaction/{{ $transaction->id }}">Manage</a></td> --}}
                             <td><form action="/sale_management/delete_transaction/{{ $transaction->id }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

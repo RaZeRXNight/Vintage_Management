@@ -13,7 +13,7 @@
     @auth
     @include('reusable.navbar')
     
-    <main>
+    <main class="centered_main">
         <section class="product-list">
             <h2>Product List</h2>
                 <!-- Add your product update content here -->

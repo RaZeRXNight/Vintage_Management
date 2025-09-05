@@ -13,8 +13,6 @@ return new class extends Migration
     public function up(): void
     {
         // Transactions Table for Pending and Successful Transactions
-        // This will store information about all transactions made by users, It will also catalogue the Total amount of Each Sale Item and the Payment Method used.
-        // The TransactionID will be used to link the transaction to the sales table
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('UserID');
@@ -27,7 +25,6 @@ return new class extends Migration
         });
         
         // Sales table creation for successful transactions
-        // This table will store information about sales made and later be used for reports and deductions from the inventory
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('TransactionID')->constrained('transactions')->onDelete('cascade');

@@ -6,7 +6,7 @@
 <body>
     @auth
     @include('reusable.navbar')
-    <main>
+    <main class='centered_main'>
         <section class="flex flex-col items-center p-7 rounded-2xl">
             <h2>Update User</h2>
             <form action="/update_user/{{ $user->id }}" method="POST">

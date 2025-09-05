@@ -11,7 +11,7 @@
             <input type='hidden' id='sales-data' value='@json($Sale)'>
         </form>
 
-        <main class='container min-w-9/10 self-center'>
+        <main class='centered_main container min-w-9/10'>
             <section class='self-center text-center'>
                 <h1>Report Management</h1>
             </section>

@@ -77,14 +77,6 @@ return new class extends Migration
 
         // Inserting default product categories
         DB::table('categories')->insert([
-            ['CategoryName' => 'T-Shirt'],
-            ['CategoryName' => 'Youth Shirt'],
-            ['CategoryName' => 'Long Sleeve'],
-            ['CategoryName' => 'Button-up'],
-            ['CategoryName' => 'Sunglasses'],
-            ['CategoryName' => 'Hoodie'],
-            ['CategoryName' => 'Sweater'],
-            ['CategoryName' => 'Ash Tray'],
             ['CategoryName' => 'Misc.']
         ]);
 
@@ -102,7 +94,7 @@ return new class extends Migration
         DB::table('products')->insert([
             [
                 'ProductName' => 'T-Shirt',
-                'CategoryID' => 1, // Assuming this is the ID for 'T-Shirt'
+                'CategoryID' => 1, 
                 'Size' => 'S',
                 'Description' => 'This is a t-shirt',
                 'UnitPrice' => 15,
@@ -139,26 +131,26 @@ return new class extends Migration
         ]);
 
         // Inserting default orders
-        DB::table('orders')->insert([
-            [
-                'SupplierID' => 1, // Assuming this is the ID for 'Default Supplier'
-                'ProductID' => 1,
-                'UnitPrice' => 15,
-                'Quantity' => 2
-            ],
-            [
-                'SupplierID' => 1, // Assuming this is the ID for 'Default Supplier'
-                'ProductID' => 2,
-                'UnitPrice' => 29.99,
-                'Quantity' => 1
-            ],
-            [
-                'SupplierID' => 1, // Assuming this is the ID for 'Default Supplier'
-                'ProductID' => 3,
-                'UnitPrice' => 39.99,
-                'Quantity' => 3
-            ]
-        ]);
+        // DB::table('orders')->insert([
+        //     [
+        //         'SupplierID' => 1, 
+        //         'ProductID' => 1,
+        //         'UnitPrice' => 15,
+        //         'Quantity' => 2
+        //     ],
+        //     [
+        //         'SupplierID' => 1, // Assuming this is the ID for 'Default Supplier'
+        //         'ProductID' => 2,
+        //         'UnitPrice' => 29.99,
+        //         'Quantity' => 1
+        //     ],
+        //     [
+        //         'SupplierID' => 1, // Assuming this is the ID for 'Default Supplier'
+        //         'ProductID' => 3,
+        //         'UnitPrice' => 39.99,
+        //         'Quantity' => 3
+        //     ]
+        // ]);
         
         /*
         Schema::create('orders', function (Blueprint $table) {

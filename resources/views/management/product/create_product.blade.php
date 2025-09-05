@@ -14,7 +14,7 @@
     @auth
         @include('Reusable.navbar')
 
-        <main class='flex flex-col justify-self-center min-h-full '>
+        <main class='centered_main flex flex-col justify-self-center min-h-full'>
             <div class='form-section border-b-1 border-dashed'>
                 <h1 class='text-lg'>Create Product</h1>
                 <p>Fill in the details below to create a new product.</p>

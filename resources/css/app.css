@@ -36,8 +36,14 @@ header {
 }
 
 body {
-    @apply bg-[var(--bg)]; 
+    @apply flex flex-col bg-[var(--bg)]; 
 }
+
+main {
+    @apply h-screen w-8/10 min-w-fit p-4 overflow-y-scroll bg-[var(--mbg)] shadow-xl shadow-neutral-600;
+}
+
+.centered_main { @apply self-center gap-5 p-6}
 
 /* Headers */
 h1 {@apply text-3xl text-center;}
@@ -60,12 +66,6 @@ button {
     border p-1 
     hover:bg-gradient-to-t hover:bg-amber-100 hover:to-50%;
 }
-
-main {
-    @apply justify-self-center min-h-screen max-h-fit min-w-8/10 max-w-9/10 p-5
-    bg-[var(--mbg)] shadow-xl shadow-neutral-600;
-}
-
 
 .content {
     @apply container flex flex-col items-center  rounded-2xl p-5 m-5 border-2 max-w-5/10 ;

@@ -6,7 +6,7 @@
     @auth
         @include('reusable.navbar')
 
-        <main class='container self-center'>
+        <main class='centered_main container self-center'>
             <section>
 
             </section>

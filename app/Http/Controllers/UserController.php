@@ -120,7 +120,6 @@ class UserController extends Controller
         if ($Verification instanceof \Illuminate\Http\RedirectResponse) {
             return $Verification;
         }
-        
 
         $incomingfields = $request->validate([
             'name' => ['required', 'min:3', 'max:50'],

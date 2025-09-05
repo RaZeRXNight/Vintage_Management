@@ -6,7 +6,7 @@
     @auth
     @include('reusable.navbar')
 
-    <main>
+    <main class="centered_main">
         <section class="product-list">
             <h2>Product List</h2>
             <div class="container">

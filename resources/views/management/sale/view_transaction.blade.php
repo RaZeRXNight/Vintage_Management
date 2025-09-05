@@ -14,7 +14,7 @@ $total = null;
     @auth
         @include('reusable.navbar')
 
-        <main class='container min-w-full mt-auto'>
+        <main class='centered_main container min-w-full mt-auto'>
             <section class='flex justify-evenly'>
                 <article class='justify-self-center w-80 rounded bg-gray-50 px-6 pt-8 shadow-lg'>
                     <div class='flex flex-col justify-center items-center gap-2'>

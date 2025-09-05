@@ -5,7 +5,7 @@
     <body>
     @auth
     @include('reusable.navbar')
-        <main>
+        <main class="centered_main">
             <section class="flex flex-col items-center p-7 max-w-5/10 justify-self-center rounded-2xl">
                 <h2>Register</h2>
 
