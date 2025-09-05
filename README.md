@@ -90,12 +90,6 @@ Please review the [Code of Conduct](https://laravel.com/docs/12.x/contributions#
 
 ---
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability, please submit an issue or contact the maintainer directly.
-
----
-
 ## License
 
 This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
